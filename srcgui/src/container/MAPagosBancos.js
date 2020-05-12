@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import i18n from '../i18next';
 import Sidebar from '../componentes/Sidebar';
 import { Layout } from 'antd';
-import PagosClientes from '../componentes/PagosClientes';
+import PagosBancos from '../componentes/PagosBancos';
 
-class MAPagos extends Component {
+class MAPagosBancos extends Component {
     render() { 
         return (
             <Layout className="layout">
@@ -12,7 +12,7 @@ class MAPagos extends Component {
                     <Sidebar/>
                 </div>
                 <div className="container" style={{marginTop: "20px", textAlign: "center"}}>
-                    <PagosClientes/>
+                    <PagosBancos/>
                 </div>
             </Layout>
             
@@ -21,4 +21,4 @@ class MAPagos extends Component {
 
 }
 
-export default MAPagos;
+export default MAPagosBancos;

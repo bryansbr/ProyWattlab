@@ -108,7 +108,7 @@
          "usr_state":"Estado",
          "usr_profile": "Perfil",
          "usr_change-user": "Modificar usuário",
-         "usr_new-user": "Novo usuário",
+         "usr_new-user": "Criar usuário",
          "usr_date-init":"Data de início",
          "usr_btn-search":"Pesquisar",
          "usr_btn-new":"Novo",
@@ -173,7 +173,7 @@
          "pay_int-title":"Painel de pagamento do cliente",
          "pay_int-description":"Nesta seção você pode registrar pagamentos de clientes",
          "pay_id":"ID Usuário",
-         "pay_bill-ref":"# Referência da fatura",
+         "pay_bill-ref":"# Fatura",
          "pay_pay-date":"Data de pagamento",
          "pay_exp-date":"Data de vencimento",
          "pay_pay-type":"Tipo de pagamento",
@@ -205,8 +205,8 @@
       "banks-panel":{
          "bks_ext-title":"Bancos",
          "bks_ext-description":"Pagamentos bancários",
-         "bks_int-title":"",
-         "bks_int-description":""
+         "bks_int-title":"Painel de pagamentos bancários",
+         "bks_int-description":"Nesta seção você pode registrar os pagamentos dos diferentes bancos"
       },
       "setting-panel": {
          "set_int-title":"Configurações",

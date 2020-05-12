@@ -1,9 +1,7 @@
-
+import React, { Component } from 'react';
+import './style/slides.css';
 import Encabezado from './Encabezado';
 import Table from '../container/Table'
-import './style/slides.css';
-
-import React, { Component } from 'react';
 import ModificarPub from './ModificarPub';
 import BackService from '../store/PeticionesBack';
 const solicitudBack = new BackService();
@@ -33,7 +31,7 @@ class Publicidad extends Component {
             })
     }
 
-    //Con este metodo hago el llamdo a solicitud una vez se renderize el componente.
+    //Con este metodo hago el llamado a solicitud una vez se renderize el componente.
     async componentDidMount() {
         this.solicitud()
     }
@@ -90,8 +88,7 @@ class Publicidad extends Component {
                 nameBtn={'publicidade.pb_change'}
                 cancelar={this.cerrarFormulario} />
             )
-        }
-        else if (this.state.banderaN === true) {
+        } else if (this.state.banderaN === true) {
             return (<ModificarPub
                 id={'Nuevo'}
                 onSubmit={this.handleCrearPublicidad}
@@ -111,7 +108,7 @@ class Publicidad extends Component {
         return (
             <React.Fragment>
                 <div className="container pre-scrollable" style={{ marginTop: "10px", maxHeight: "350px", marginBottom: "20px" }}>
-                <Table t1={'Id'} t2={'Titulo'} t3={'Descripción'} t4={'Url'} t5={'Modificar'} t6={'Estado'} tabla='publicidad' datos={this.state.datos} modificar={this.modificar} cambiarEstado={this.cambiarEstadoPublicidad} />
+                <Table t1={'ID'} t2={'Título'} t3={'Descripción'} t4={'URL'} t5={'Modificar'} t6={'Estado'} tabla='publicidad' datos={this.state.datos} modificar={this.modificar} cambiarEstado={this.cambiarEstadoPublicidad} />
                 </div>
             </React.Fragment>
         )
@@ -154,16 +151,14 @@ class Publicidad extends Component {
         const datosNuevos = this.state.datos.filter(function(fila){
             if(fila.titulo.toLowerCase().indexOf(letra)!==-1){
                 return fila;
-            }else if(fila.descripcion.toLowerCase().indexOf(letra)!==-1)
-            {
+            } else if(fila.descripcion.toLowerCase().indexOf(letra)!==-1) {
                 return fila;
-            }   
+            }
         })
         this.setState({
             datos: datosNuevos,
             resultado:datosNuevos.length
-        })
-        
+        })    
     }
 
     default = (e) =>{
@@ -181,7 +176,7 @@ class Publicidad extends Component {
                         <div className="form-row justify-content-between">
                             <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12" style={{ marginBottom: "10px" }}>
                                 <div className="input-group">
-                                    <input type="text" name="buscador" value={this.state.buscador}  onChange={this.onChange} autoComplete="off" className="form-control" required />
+                                    <input type="text" name="buscador" value={this.state.buscador} onChange={this.onChange} autoComplete="off" className="form-control" required />
                                     <div className="input-group-prepend">
                                         <span className="input-group-text" id="inputGroupPrepend2">
                                             <svg className="bi bi-search" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -218,7 +213,6 @@ class Publicidad extends Component {
             </div>
         )
     }
-
 }
 
 export default Publicidad

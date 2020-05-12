@@ -108,7 +108,7 @@
          "usr_state":"State",
          "usr_profile": "Profile",
          "usr_change-user": "Change user",
-         "usr_new-user": "New user",
+         "usr_new-user": "Create user",
          "usr_date-init":"Start date",
          "usr_btn-search":"Search",
          "usr_btn-new":"New",
@@ -173,7 +173,7 @@
          "pay_int-title":"Customer payment panel",
          "pay_int-description":"In this section you can record customer payments",
          "pay_id":"ID User",
-         "pay_bill-ref":"# Bill reference",
+         "pay_bill-ref":"# Bill",
          "pay_pay-date":"Payment date",
          "pay_exp-date":"Expiration date",
          "pay_pay-type":"Payment type",
@@ -205,8 +205,8 @@
       "banks-panel":{
          "bks_ext-title":"Banks",
          "bks_ext-description":"Bank payments",
-         "bks_int-title":"",
-         "bks_int-description":""
+         "bks_int-title":"Bank payments panel",
+         "bks_int-description":"In this section you can register the payments of the different banks"
       },
       "setting-panel": {
          "set_int-title":"Settings",
