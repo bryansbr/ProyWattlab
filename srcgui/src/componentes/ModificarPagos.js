@@ -1,8 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Swal from'sweetalert2';
+import Alerta from '../componentes/Alertas';
 
 function ModificarPagos(props) {
     const i18n = useTranslation();
+    const notificaciones = new Alerta();
     var titulo = props.h1;
     var nameBtn = props.nameBtn;
     //La referencia para poder enfocar
@@ -72,10 +75,11 @@ function ModificarPagos(props) {
 	                </div>
                     <div className="form-group col-md-6">
                         <label for="inputTipoPago">Tipo de pago</label>
-                        <select onChange={onChange} name="pagoFactura" id="inputTipoPago" value={pagos.tipoPago} className="custom-select" >
+                        <select onChange={onChange} onClick={() => notificaciones.transfBancaria()} name="pagoFactura" id="inputTipoPago" value={pagos.tipoPago} className="custom-select" >
                             <option defaultValue>---</option>
-                            <option>Pago en efectivo</option>
-                            <option>Pago con tarjeta</option>
+                            <option>Haga click aquí para ver las opciones</option>
+                            {/*<option>Pago en efectivo</option>
+                            <option>Pago con tarjeta</option>*/}
                         </select>
                     </div>
                 </div>
