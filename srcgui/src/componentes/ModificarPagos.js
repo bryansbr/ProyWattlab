@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-// import Swal from'sweetalert2';
-// import Alerta from '../componentes/Alertas';
+import Swal from'sweetalert2';
+import Alerta from '../componentes/Alertas';
 
 function ModificarPagos(props) {
     const i18n = useTranslation();
-    // const notificaciones = new Alerta();
+    const notificaciones = new Alerta();
     var titulo = props.h1;
     var nameBtn = props.nameBtn;
     
@@ -76,12 +76,11 @@ function ModificarPagos(props) {
 	                </div>
                     <div className="form-group col-md-6">
                         <label for="inputTipoPago">{i18n.t('payments-panel.pay_pay-type')}</label>
-                        <select onChange={onChange} name="pagoFactura" id="inputTipoPago" value={pagos.tipoPago} className="custom-select" >
+                        <select name="pagoFactura" onClick={() => notificaciones.transfBancaria()} onChange={onChange} id="inputTipoPago" value={pagos.tipoPago} className="custom-select" >
                             <option defaultValue>---</option>
-                            {/*<option>Haga click aquí para ver las opciones</option>
-                            onClick={() => notificaciones.transfBancaria()} (Esto va en el select, es para la alerta de pagos)*/}
-                            <option>{i18n.t('payments-panel.pay_pay-type-cash')}</option>
-                            <option>{i18n.t('payments-panel.pay_pay-type-btransfer')}</option>
+                            <option>Haga click aquí para ver las opciones</option>
+                            {/*<option>{i18n.t('payments-panel.pay_pay-type-cash')}</option>
+                            <option>{i18n.t('payments-panel.pay_pay-type-btransfer')}</option>*/}
                         </select>
                     </div>
                 </div>
