@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layout } from 'antd';
+import { useForm } from 'react-hook-form';
 import Footer from './Footer';
 import Menu from './Menu';
-
 import BackService from '../store/PeticionesBack'; //CENTRALIZACION DE LAS SOLICITUDES
 const solicitudBack = new BackService();
 
-const handleFormSubmit = e => {
+/*const handleFormSubmit = e => {
     e.preventDefault();
     
     solicitudBack.postPQRS({ //Envio de datos al back
@@ -20,12 +20,36 @@ const handleFormSubmit = e => {
     e.target.elements.asunto.value="";
     e.target.elements.contenido.value="";
     e.target.elements.email.value="";
-}
+}*/
 
-function PQRS() {
+const PQRS = () => { // Nuevo PQRS con todo lo del back (experimental, testear bien).
     const i18n = useTranslation();
-    return (
-        <Layout className="layout">
+
+    // Para validación
+    const {register, errors, handleSubmit} = useForm();
+
+    const validarFormulario = (e, data, ev) => {
+        // COSAS DEL BACK
+        e.preventDefault();
+
+        solicitudBack.postPQRS({ //Envio de datos al back
+            "asunto": e.target.elements.asunto.value,
+            "contenido": e.target.elements.contenido.value,
+            "email": e.target.elements.email.value
+        }).then(res => {console.log(res)})
+          .catch(error => {console.log(error)})
+        
+        e.target.elements.asunto.value="";
+        e.target.elements.contenido.value="";
+        e.target.elements.email.value="";
+        
+        // COSAS DEL FRONT
+        console.log(data);
+        ev.target.reset();
+    }
+
+    return(
+        <Fragment>
             <div>
                 <Menu/>
             </div>
@@ -47,15 +71,59 @@ function PQRS() {
                             <p>{i18n.t('homepage.pqrs-homepage.pqrs_sgtn-description')}</p>
                     </div>
                     <div className="col-lg-5" style={{marginTop: "20px"}}>
-                        <form onSubmit={(event) => handleFormSubmit(event)}>
+                        <form onSubmit={handleSubmit(validarFormulario)}>
                             <div>
                                 <h3 style={{marginBottom: "20px"}}>{i18n.t('homepage.pqrs-homepage.pqrs_submrq-description')}</h3>
                             </div>
                             <div className="form-group">
-                                <input name="asunto" className="form-control" placeholder={i18n.t('homepage.pqrs-homepage.pqrs_sbjt-title')}></input>
+                                <input 
+                                    name="asunto" 
+                                    className="form-control" 
+                                    placeholder={i18n.t('homepage.pqrs-homepage.pqrs_sbjt-title')}
+                                    ref={
+                                        register({
+                                            required: {
+                                                value: true,
+                                                message: 'Debe ingresar un asunto (petición, queja, reclamo, sugerencia)'
+                                            },
+                                            maxLength: {
+                                                value: 10, 
+                                                message: 'No más de 10 carácteres!'
+                                            },
+                                            minLength: {
+                                                value: 3, 
+                                                message: 'Mínimo 5 carácteres'
+                                            }
+                                        })
+                                    }>
+                                </input>
+                                <span className="text-danger text-small d-block mb-2">
+                                    {errors?.asunto?.message}
+                                </span>
                             </div>
                             <div className="form-group">
-                                <input name="email" className="form-control" type="email" placeholder={i18n.t('homepage.pqrs-homepage.pqrs_email-title')}></input>
+                                <input 
+                                    name="email" 
+                                    className="form-control" 
+                                    type="email" 
+                                    placeholder={i18n.t('homepage.pqrs-homepage.pqrs_email-title')}
+                                    ref={
+                                        register({
+                                            required: {
+                                                value: true,
+                                                message: 'Debe ingresar una dirección de correo válida'
+                                            },
+                                            maxLength: {
+                                                value: 10, 
+                                                message: 'No más de 10 carácteres!'
+                                            },
+                                            minLength: {
+                                                value: 3, 
+                                                message: 'Mínimo 5 carácteres'
+                                            }
+                                        })
+                                    }>                                    
+                                </input>
                             </div>
                             <div>
                                 <input name="contenido" className="form-control" placeholder={i18n.t('homepage.pqrs-homepage.pqrs_dcptn-title')} style={{height: "200px", verticalAlign: "top"}}></input>
@@ -69,9 +137,9 @@ function PQRS() {
             </div>
             <div>
                 <Footer/>
-            </div>
-        </Layout>
-    );
+            </div>            
+        </Fragment>
+    )
 }
 
 export default PQRS;

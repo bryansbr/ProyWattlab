@@ -11,7 +11,7 @@ class PagosClientes extends Component {
         e.preventDefault()
         //console.log(pagos)
         solicitudBack.postRegisterPagos(pagos
-        ).then(res => {
+        ).then(res => { // AÑADIR postRegisterPagos()
             //console.log(res)
             this.solicitud()
         })
@@ -22,7 +22,7 @@ class PagosClientes extends Component {
     handleModificarPagos = async (e, pagos) => {
         e.preventDefault()
         solicitudBack.putUpdatePagos(pagos
-        ).then(res => {
+        ).then(res => { // AÑADIR putUpdatePagos()
             //console.log(res)
             this.solicitud()
         })
@@ -33,7 +33,7 @@ class PagosClientes extends Component {
     cambiarEstadoPagos = (pagos) => {
         //console.log(pagos)
         solicitudBack.putUpdatePagos(pagos
-        ).then(res => {
+        ).then(res => { // AÑADIR putUpdatePagos()
             //console.log(res)
             this.solicitud()
         })
@@ -84,7 +84,7 @@ class PagosClientes extends Component {
         return (
             <React.Fragment>
                 <div className="container pre-scrollable" style={{ marginTop: "10px", maxHeight: "350px", marginBottom: "20px" }}>
-                    <Table t1={'ID'} t2={'# Factura'} t3={'Fecha de pago factura'} t4={'Fecha de vencimiento factura'} t5={'Tipo de pago'} t6={'Valor pagado'} t7={'Seleccione el banco'} t8={'Estado de la factura'} t9={'Modificar'} t10={'Estado'} tabla='pagos' datos={this.state.datos} modificar={this.modificar} cambiarEstado={this.cambiarEstadoUser} />
+                    <Table t1={'ID'} t2={'# Factura'} t3={'Fecha de pago factura'} t4={'Fecha de vencimiento factura'} t5={'Tipo de pago'} t6={'Valor pagado'} t7={'Seleccione el banco'} t8={'Estado de la factura'} t9={'Modificar'} t10={'Estado'} tabla='pagos' datos={this.state.datos} modificar={this.modificar} cambiarEstado={this.cambiarEstadoPagos} />
                 </div>
             </React.Fragment>
         )
@@ -106,8 +106,8 @@ class PagosClientes extends Component {
                     valorPagado={this.state.valorPagado}
                     seleccionBanco={this.state.seleccionBanco}
                     estadoFactura={this.state.estadoFactura}
-                    h1={'Modificar datos de pago'}
-                    nameBtn={'Modificar datos de pago'}
+                    h1={'payments-panel.pay_change-pay'}
+                    nameBtn={'payments-panel.pay_change-pay'}
                     cancelar={this.cerrarFormulario}
                 />
             )
@@ -123,8 +123,8 @@ class PagosClientes extends Component {
                 valorPagado={''}
                 seleccionBanco={''}
                 estadoFactura={''}
-                h1={'Registro de pagos'}
-                nameBtn={'Registro de pagos'}
+                h1={'payments-panel.pay_add-pay'}
+                nameBtn={'payments-panel.pay_add-pay'}
                 cancelar={this.cerrarFormulario}
             />
             )
@@ -170,7 +170,7 @@ class PagosClientes extends Component {
         }
     }
 
-    buscador = (letra) => { // ARREGLAR ESTO. TABLAS EN DJANGO
+    buscador = (letra) => { // ARREGLAR ESTO. TABLAS EN DJANGO ---> fila.username y fila.first_name
         /*const datosNuevos = this.state.datos.filter(function (fila) {
             if (fila.username.toLowerCase().indexOf(letra) !== -1) { // ¡ARREGLAR -> fila.username!
                 return fila;

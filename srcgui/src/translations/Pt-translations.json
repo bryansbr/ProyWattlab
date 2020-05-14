@@ -173,6 +173,8 @@
          "pay_int-title":"Painel de pagamento do cliente",
          "pay_int-description":"Nesta seção você pode registrar pagamentos de clientes",
          "pay_id":"ID Usuário",
+         "pay_add-pay": "Registro de pagamento",
+         "pay_change-pay": "Modificar detalhes de pagamento",
          "pay_bill-ref":"# Fatura",
          "pay_pay-date":"Data de pagamento",
          "pay_exp-date":"Data de vencimento",

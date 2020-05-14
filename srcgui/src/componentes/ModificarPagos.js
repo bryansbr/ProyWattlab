@@ -1,13 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Swal from'sweetalert2';
-import Alerta from '../componentes/Alertas';
+// import Swal from'sweetalert2';
+// import Alerta from '../componentes/Alertas';
 
 function ModificarPagos(props) {
     const i18n = useTranslation();
-    const notificaciones = new Alerta();
+    // const notificaciones = new Alerta();
     var titulo = props.h1;
     var nameBtn = props.nameBtn;
+    
     //La referencia para poder enfocar
     const myRef = useRef();
 
@@ -60,36 +61,37 @@ function ModificarPagos(props) {
             <form onSubmit={(event) => props.onSubmit(event, pagos)}>
 	            <div className="form-row">
 	                <div className="form-group col-md-6">
-	                    <label for="inputNroFactura"># Factura</label>
+	                    <label for="inputNroFactura">{i18n.t('payments-panel.pay_bill-ref')}</label>
 	                    <input required name="factura" onChange={onChange} ref={myRef} type="text" value={pagos.nroFactura} className="form-control" id="inputNroFactura" />
 	                </div>	         
 	                <div className="form-group col-md-6">
-	                    <label for="inputFechaPagoFactura">Fecha de pago factura</label>
+	                    <label for="inputFechaPagoFactura">{i18n.t('payments-panel.pay_pay-date')}</label>
 	                    <input name="fechaPagoFactura" onChange={onChange} type="date" value={pagos.fechaPagoFactura} className="form-control" id="inputFechaPagoFactura" required/>
 	                </div>
 	            </div>
 	            <div className="form-row">
 	                <div className="form-group col-md-6">
-	                    <label for="inputFechaVencimientoFactura">Fecha de vencimiento factura</label>
+	                    <label for="inputFechaVencimientoFactura">{i18n.t('payments-panel.pay_exp-date')}</label>
 	                    <input name="fechaVencimientoFactura" onChange={onChange} type="date" value={pagos.fechaVencimientoFactura} className="form-control" id="inputFechaVencimientoFactura" required/>
 	                </div>
                     <div className="form-group col-md-6">
-                        <label for="inputTipoPago">Tipo de pago</label>
-                        <select onChange={onChange} onClick={() => notificaciones.transfBancaria()} name="pagoFactura" id="inputTipoPago" value={pagos.tipoPago} className="custom-select" >
+                        <label for="inputTipoPago">{i18n.t('payments-panel.pay_pay-type')}</label>
+                        <select onChange={onChange} name="pagoFactura" id="inputTipoPago" value={pagos.tipoPago} className="custom-select" >
                             <option defaultValue>---</option>
-                            <option>Haga click aquí para ver las opciones</option>
-                            {/*<option>Pago en efectivo</option>
-                            <option>Pago con tarjeta</option>*/}
+                            {/*<option>Haga click aquí para ver las opciones</option>
+                            onClick={() => notificaciones.transfBancaria()} (Esto va en el select, es para la alerta de pagos)*/}
+                            <option>{i18n.t('payments-panel.pay_pay-type-cash')}</option>
+                            <option>{i18n.t('payments-panel.pay_pay-type-btransfer')}</option>
                         </select>
                     </div>
                 </div>
 	            <div className="form-row">
 	                <div className="form-group col-md-6">
-	                    <label for="inputValorPagado">Valor pagado</label>
+	                    <label for="inputValorPagado">{i18n.t('payments-panel.pay_val-paid')}</label>
 	                    <input name="valorPagoFactura" onChange={onChange} type="text" value={pagos.valorPagado} className="form-control" id="inputValorPagado" required/>
 	                </div>
                     <div className="form-group col-md-6">
-                        <label for="inputSeleccionBanco">Seleccione el banco</label>
+                        <label for="inputSeleccionBanco">{i18n.t('payments-panel.pay_slt-bank')}</label>
                         <select onChange={onChange} name="seleccionBanco" id="inputSeleccionBanco" value={pagos.seleccionBanco} className="custom-select" >
                             <option defaultValue>---</option>
                             <option>Bancolombia</option>                            
@@ -105,10 +107,11 @@ function ModificarPagos(props) {
 	            </div>
                 <br /><br />
                 <div className="form-row">
-                    <button type="submit" className="btn btn-primary mx-auto d-block col-md-5" >Registrar pago</button>
-                    <button onClick={props.cancelar} className="btn btn-danger mx-auto d-block col-md-5">Cancelar</button>
+                    <button type="submit" className="btn btn-primary mx-auto d-block col-md-5" >{i18n.t(nameBtn)}</button>
+                    <button onClick={props.cancelar} className="btn btn-danger mx-auto d-block col-md-5">{i18n.t('payments-panel.pay_btn-cancel')}</button>
                 </div>	                           
             </form>
+            <br /><br />            
         </div>    	
     )
 }

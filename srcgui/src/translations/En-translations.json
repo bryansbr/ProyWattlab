@@ -173,6 +173,8 @@
          "pay_int-title":"Customer payment panel",
          "pay_int-description":"In this section you can record customer payments",
          "pay_id":"ID User",
+         "pay_add-pay": "Payment record",
+         "pay_change-pay": "Modify payment details",
          "pay_bill-ref":"# Bill",
          "pay_pay-date":"Payment date",
          "pay_exp-date":"Expiration date",
