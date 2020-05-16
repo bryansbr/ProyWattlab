@@ -6,7 +6,8 @@ export default class Alerta {
 
 	}
 
-	transfBancaria () {
+	transferenciaBancaria () {
+		var strRespuesta1, strRespuesta2, strRespuesta3;
 		const tfBancaria = (async () => {
 			// Selección del tipo de pago a realizar (equivalente a etiqueta <select> & <option>)
 			const { value: tipoPago } = await Swal.fire({
@@ -24,6 +25,7 @@ export default class Alerta {
 			  	inputValidator: (value) => {
 			  		return new Promise((resolve) => {
 			  			if (value === 'transfBancaria') { // Si se selecciónó 'Transferencia bancaria'.
+			  				// var strRespuesta1, strRespuesta2, strRespuesta3;
 			  				Swal.mixin({
 			  					input: 'text',
 					  			confirmButtonText: 'Siguiente',
@@ -34,25 +36,39 @@ export default class Alerta {
 							}).queue([ // Cola que pedirá los datos y los almacenará.
 								{
 									title: 'Paso 1: Número de la tarjeta',
-						    		text: 'Ingrese los 15 dígitos de la tarjeta (incluyendo los guiones)'
+						    		text: 'Ingrese los 15 dígitos de la tarjeta (incluyendo los guiones)',
+						    		preConfirm: function(value) {
+						    			strRespuesta1 = value;
+						    		} 
 						    	},
 						    	{
 						    		title: 'Paso 2: Clave tarjeta',
-						  			text: 'Ingrese la clave de la tarjeta'
+						  			text: 'Ingrese la clave de la tarjeta',
+						  			input: 'password',
+						    		preConfirm: function(value) {
+						    			strRespuesta2 = value;
+						    		} 
 						  		},
 						    	{
 						    		title: 'Paso 3: Valor a pagar',
-						  			text: 'Ingrese el valor a pagar (sin simbolos ni espacios)'
+						  			text: 'Ingrese el valor a pagar (sin simbolos ni espacios)',
+						    		preConfirm: function(value) {
+						    			strRespuesta3 = value;
+						    		} 						  			
 						  		}
 					  		]).then((result) => { // Aquí se muestran los datos ingresados en la cola.
 					  			if (result.value) {
-					  				const answers = JSON.stringify(result.value)
+					  				//const answers = JSON.stringify(result.value)
 					  				Swal.fire({
 					  					title: 'Datos',
-					  					html: `
-					  						Los datos que has ingresado son:
-					  							<pre><code>${answers}</code></pre>
-					  					`,
+					  					html: 
+					  						'Los datos que has ingresado son:' +
+					  							JSON.stringify(result) +
+					  							'<br></br>' +
+					  							'<pre>Respuesta 1: ' + strRespuesta1 +
+					  							'<pre>Respuesta 2: ' + strRespuesta2 +
+					  							'<pre>Respuesta 3: ' + strRespuesta3 +					  							
+					  							'</pre>',
 					  					confirmButtonText: 'Aceptar'
 					  				}).then((result) => { // Confirmación para decidir si se realiza la transferencia.
 					  					Swal.fire({
@@ -121,7 +137,7 @@ export default class Alerta {
 					})
 			  	}
 			})
-			if (tipoPago) { // Almancena el tipo de pago.
+			if (tipoPago) { // Almacena el tipo de pago.
 				Swal.fire(`Datos ingresados: ${tipoPago}`)
 			}
 		})()

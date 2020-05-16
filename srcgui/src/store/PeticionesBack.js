@@ -1,48 +1,77 @@
 import axios from 'axios';
 const API_URL = 'http://127.0.0.1:8000';
 
-
 export default class BackService {
+    constructor() {
 
-    constructor() { }
+    }
+
     ///PQRS
     postPQRS(solitAtent) {
         const url = `${API_URL}/api/pqrs/`;
-        return axios.post(url, solitAtent).then(res => res.data)
-                                .catch(error => console.log(error));
+        return axios.post(url, solitAtent)
+            .then(res => res.data)
+            .catch(error => console.log(error));
     }
+
     //USUARIOS
     getListUser() {
         const url = `${API_URL}/auth/user/`;
-        return axios.get(url).then(res => res.data)
-                             .catch(error =>console.log(error));                           
+        return axios.get(url)
+            .then(res => res.data)
+            .catch(error =>console.log(error));                           
     }
     postRegisterUser(user) {
         const url = `${API_URL}/auth/user/`;
-        return axios.post(url, user).then(res => res.data)
-                            .catch(error => console.log(error));
+        return axios.post(url, user)
+            .then(res => res.data)
+            .catch(error => console.log(error));
     }
     putUpdateUser(user) {   
         const url = `${API_URL}/auth/account/change-active/${user.id}/`;
-        return axios.put(url, user).then(res => res.data)
-                            .catch(error => console.log(error));
+        return axios.put(url, user)
+            .then(res => res.data)
+            .catch(error => console.log(error));
         
     }
+
     //PUBLICIDAD
     getListPublicidad() {
         const url = `${API_URL}/api/articulo/`;
-        return axios.get(url).then(res => res.data)
+        return axios.get(url)
+            .then(res => res.data)
             .catch(error => console.log(error))
     }
     postRegisterPublicidad(publicidad) {
         const url = `${API_URL}/api/articulo/`;
-        return axios.post(url, publicidad).then(res => res.data)
+        return axios.post(url, publicidad)
+            .then(res => res.data)
             .catch(error => console.log(error));
     }
     putUpdatePublicidad(publicidad) {
         const url = `${API_URL}/api/articulo/update/${publicidad.id}/`;
-        return axios.put(url, publicidad).then(res => res.data)
+        return axios.put(url, publicidad)
+            .then(res => res.data)
             .catch(error => console.log(error));
     }
 
+    // PAGOS
+    getListPagos() { // REVISAR BIEN ACÁ!!!
+        const url = `${API_URL}/api/pagos`;
+        return axios.get(url)
+            .then(res => res.data)
+            .catch(error => console.log(error));
+    }
+    postRegisterPagos(pagos) {
+        const url = `${API_URL}/api/pagos`;
+        return axios.post(url, pagos)
+            .then(res => res.data)
+            .catch(error => console.log(error));
+    }
+    putUpdatePagos(pagos) {
+        const url = `${API_URL}/api/pagos/update/${pagos.id}/`;
+        return axios.put(url, pagos)
+            .then(res => res.data)
+            .catch(error => console.log(error));
+    }
 }

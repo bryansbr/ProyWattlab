@@ -11,7 +11,7 @@ class PagosClientes extends Component {
         e.preventDefault()
         //console.log(pagos)
         solicitudBack.postRegisterPagos(pagos
-        ).then(res => { // AÑADIR postRegisterPagos()
+        ).then(res => {
             //console.log(res)
             this.solicitud()
         })
@@ -22,7 +22,7 @@ class PagosClientes extends Component {
     handleModificarPagos = async (e, pagos) => {
         e.preventDefault()
         solicitudBack.putUpdatePagos(pagos
-        ).then(res => { // AÑADIR putUpdatePagos()
+        ).then(res => {
             //console.log(res)
             this.solicitud()
         })
@@ -33,7 +33,7 @@ class PagosClientes extends Component {
     cambiarEstadoPagos = (pagos) => {
         //console.log(pagos)
         solicitudBack.putUpdatePagos(pagos
-        ).then(res => { // AÑADIR putUpdatePagos()
+        ).then(res => {
             //console.log(res)
             this.solicitud()
         })
@@ -64,7 +64,7 @@ class PagosClientes extends Component {
 
     // Con este método haga el llamado a los datos al back-end para guardarlos en el estado.
     solicitud = () => {
-        solicitudBack.getListUser() // ¡¡¡CAMBIAR ESTO a -> getListPagos()!!!
+        solicitudBack.getListPagos()
             .then(res => {
                 this.setState({
                     datos: res
@@ -170,18 +170,18 @@ class PagosClientes extends Component {
         }
     }
 
-    buscador = (letra) => { // ARREGLAR ESTO. TABLAS EN DJANGO ---> fila.username y fila.first_name
-        /*const datosNuevos = this.state.datos.filter(function (fila) {
-            if (fila.username.toLowerCase().indexOf(letra) !== -1) { // ¡ARREGLAR -> fila.username!
+    buscador = (letra) => { // ARREGLAR ESTO (TABLAS EN DJANGO). // REVISAR BIEN ACÁ!!!
+        const datosNuevos = this.state.datos.filter(function (fila) {
+            if (fila.id.toLowerCase().indexOf(letra) !== -1) { // REVISAR BIEN ACÁ!!!
                 return fila;
-            } else if (fila.first_name.toLowerCase().indexOf(letra) !== -1) { // ¡ARREGLAR -> fila.first_name!
+            } else if (fila.nroFactura.toLowerCase().indexOf(letra) !== -1) { // REVISAR BIEN ACÁ!!!
                 return fila;
             }
         })
         this.setState({
             datos: datosNuevos,
             resultado: datosNuevos.length
-        })*/
+        })
     }
 
     default = (e) => {

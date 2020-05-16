@@ -76,11 +76,12 @@ function ModificarPagos(props) {
 	                </div>
                     <div className="form-group col-md-6">
                         <label for="inputTipoPago">{i18n.t('payments-panel.pay_pay-type')}</label>
-                        <select name="pagoFactura" onClick={() => notificaciones.transfBancaria()} onChange={onChange} id="inputTipoPago" value={pagos.tipoPago} className="custom-select" >
+                        <select name="pagoFactura" onChange={onChange} id="inputTipoPago" value={pagos.tipoPago} className="custom-select" >
+                            {/*onClick={() => notificaciones.transferenciaBancaria()}*/}
                             <option defaultValue>---</option>
-                            <option>Haga click aquí para ver las opciones</option>
-                            {/*<option>{i18n.t('payments-panel.pay_pay-type-cash')}</option>
-                            <option>{i18n.t('payments-panel.pay_pay-type-btransfer')}</option>*/}
+                            {/*<option>Haga click aquí para ver las opciones</option>*/}
+                            <option>{i18n.t('payments-panel.pay_pay-type-cash')}</option>
+                            <option>{i18n.t('payments-panel.pay_pay-type-btransfer')}</option>
                         </select>
                     </div>
                 </div>

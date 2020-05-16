@@ -2,7 +2,6 @@ import React from 'react';
 import BotonModificar from './BotonModificar';
 import BotonInactivar from './BotonInactivar';
 
-
 function FilaTable(props) {
     //Dependiendo del tipo, se pintan las filas correspondientes
     const pintarCeldas = () => {
@@ -36,6 +35,25 @@ function FilaTable(props) {
                         </td>
                         {/*Con este metodo le mando la informacion con el cambio de estado*/}
                         {mostrarBotonA({ "id": props.id, "estado": !props.estado })}
+                    </React.Fragment>
+                )
+            }
+            case 'pagos': { // REVISAR BIEN ACÁ. APARENTEMENTE ACÁ ESTÁ EL ERROR!!!
+                return(
+                    <React.Fragment>
+                        <td>{props.nroFactura}</td>
+                        <td>{props.fechaPagoFactura}</td>
+                        <td>{props.fechaVencimientoFactura}</td>
+                        <td>{props.tipoPago}</td>
+                        <td>{props.valorPagado}</td>
+                        <td>{props.seleccionBanco}</td> 
+                        <td>{props.estadoFactura}</td>
+                        <td>
+                            <BotonModificar
+                                modificar={props.modificar.bind(this, props.id, props.nroFactura, props.fechaPagoFactura, props.fechaVencimientoFactura, props.tipoPago, props.valorPagado, props.seleccionBanco, props.estadoFactura)} />                            
+                        </td>
+                        {/*Con este metodo le mando la informacion con el cambio de estado*/}
+                        {mostrarBotonA({ "id": props.id, "estado": !props.estado })}                                         
                     </React.Fragment>
                 )
             }
