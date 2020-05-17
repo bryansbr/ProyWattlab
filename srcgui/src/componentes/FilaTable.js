@@ -65,6 +65,25 @@ function FilaTable(props) {
                     </React.Fragment>
                 )
             }
+            case 'pagos': { // ¡NUEVO! ELIMINAR SI NO FUNCIONA. (@bryansbr)
+                return(
+                    <React.Fragment>
+                        <td>{props.identfBanco}</td>
+                        <td>{props.consctFactura}</td>
+                        <td>{props.numUncIdUsuario}</td>
+                        <td>{props.valorPagado}</td>
+                        <td>{props.tipoPago}</td>
+                        <td>{props.numTarjeta}</td> 
+                        <td>{props.observacion}</td>
+                        <td>
+                            <BotonModificar
+                                modificar={props.modificar.bind(this, props.id, props.identfBanco, props.consctFactura, props.numUncIdUsuario, props.valorPagado, props.tipoPago, props.numTarjeta, props.observacion)} />                            
+                        </td>
+                        {/*Con este metodo le mando la informacion con el cambio de estado*/}
+                        {mostrarBotonA({ "id": props.id, "estado": !props.estado })}                                         
+                    </React.Fragment>
+                )
+            }
             default: {
                 return (null)
             }
