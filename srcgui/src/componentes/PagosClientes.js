@@ -1,16 +1,17 @@
 // ¡NUEVO! ELIMINAR SI NO FUNCIONA. (@bryansbr)
 import React, { Component } from 'react';
+//import { useTranslation } from 'react-i18next';
 import Encabezado from './Encabezado';
 import Table from '../container/Table';
-import ModificarPagosCli from './ModificarPagosCli';
+import PagosBancos from './PagosBancos';
 import BackService from '../store/PeticionesBack';
 const solicitudBack = new BackService(); // Datos al back-end.
 
 class PagosClientes extends Component {
 
-    handleRegistrarPagosCli = async (e, pagos) => {
+    handleNewPagosBancos = async (e, pagos) => {
         e.preventDefault()
-        //console.log(pagos)
+        console.log(pagos)
         solicitudBack.postRegisterPagos(pagos
         ).then(res => {
             //console.log(res)
@@ -20,7 +21,7 @@ class PagosClientes extends Component {
         this.cerrarFormulario()
     }
 
-    handleModificarPagosCli = async (e, pagos) => {
+    handleChangePagosBancos = async (e, pagos) => {
         e.preventDefault()
         solicitudBack.putUpdatePagos(pagos
         ).then(res => {
@@ -31,7 +32,7 @@ class PagosClientes extends Component {
         this.cerrarFormulario()
     }
 
-    cambiarEstadoPagos = (pagos) => {
+    /*cambiarEstadoPagos = (pagos) => {
         //console.log(pagos)
         solicitudBack.putUpdatePagos(pagos
         ).then(res => {
@@ -39,29 +40,42 @@ class PagosClientes extends Component {
             this.solicitud()
         })
             .catch(error => console.log(error))
-    }
+    }*/
 
     // Con estos estados me doy cuenta que boton se presionó si el 'Modificar' o el 'Nuevo'.
     state = {
         banderaM: false,
         banderaN: false,
         id: '',
-        identfBanco: '',
-        consctFactura: '',
-        numUncIdUsuario: '',
-        valorPagado: '',
-        tipoPago: '',
-        numTarjeta: '',
-        observacion:'',
+        idntfccn_bnco: '',
+        cnsctvo_fctra: '',
+        nmro_unco_idntfccn_usro: '',
+        vlr_pgdo: '',
+        tp_pgdo: '',
+        nmro_trjt: '',
+        obsrvcn:'',
+        banco: [],
         datos: [],
         buscador: '',
         resultado: ''
     }
 
     // Con este método hago el llamado a solicitud una vez se renderize el componente.
-    async componentDidMount() {
+    componentDidMount() {
+        this.submitSub()
         this.solicitud()
+
+
     }
+
+    submitSub = async () => {
+        solicitudBack.getBanco()
+          .then(res => {
+            this.setState({
+              banco: res
+            })
+          })
+      }
 
     // Con este método haga el llamado a los datos al back-end para guardarlos en el estado.
     solicitud = () => {
@@ -85,7 +99,7 @@ class PagosClientes extends Component {
         return (
             <React.Fragment>
                 <div className="container pre-scrollable" style={{ marginTop: "10px", maxHeight: "350px", marginBottom: "20px" }}>
-                    <Table t1={'ID'} t2={'Identf. Banco'} t3={'Consect. Factura'} t4={'Nº ID Usuario'} t5={'Valor Pagado'} t6={'Tipo Pago'} t7={'Nº Tarjeta'} t8={'Observación'} t9={'Modificar'} t10={'Estado'} tabla='pagos' datos={this.state.datos} modificar={this.modificar} cambiarEstado={this.cambiarEstadoPagos} />
+                    <Table t1={'ID'} t2={'Identf. Banco'} t3={'Consect. Factura'} t4={'Nº ID Usuario'} t5={'Valor Pagado'} t6={'Tipo Pago'} t7={'Nº Tarjeta'} t8={'Observación'} tabla='pagos' datos={this.state.datos} modificar={this.modificar}  />
                 </div>
             </React.Fragment>
         )
@@ -94,57 +108,41 @@ class PagosClientes extends Component {
     // En este solicito los datos a la API y los guardo en el estado datos.
     // Con este método de acuerdo al boton que haya presionado si 'Modificar' o 'Nuevo', se llama el componente formulario.
     mostrarFormulario = () => {
-        if (this.state.banderaM === true) {
-            return (
-                <ModificarPagosCli
-                    id={'Modificar'}
-                    onSubmit={this.handleModificarPagosCli}
-                    idRow={this.state.id}
-                    identfBanco={this.state.identfBanco}
-                    consctFactura={this.state.consctFactura}
-                    numUncIdUsuario={this.state.numUncIdUsuario}
-                    valorPagado={this.state.valorPagado}
-                    tipoPago={this.state.tipoPago}
-                    numTarjeta={this.state.numTarjeta}
-                    observacion={this.state.observacion}
-                    h1={'Modificar pago'}
-                    nameBtn={'Modificar pago'}
+        if (this.state.banderaN === true) {
+            return(
+                <PagosBancos
+                    id={'Nuevo'}
+                    onSubmit={this.handleNewPagosBancos}
+                    idRow={''}
+                    idntfccn_bnco={''}
+                    cnsctvo_fctra={''}
+                    nmro_unco_idntfccn_usro={''}
+                    vlr_pgdo={''}
+                    tp_pgdo={''}
+                    nmro_trjt={''}
+                    obsrvcn={''}
+                    h1={'Añadir pago'}
+                    nameBtn={'Añadir pago'}
                     cancelar={this.cerrarFormulario}
+                    dato={this.state.banco}
                 />
             )
-        } else if (this.state.banderaN === true) {
-            return (<ModificarPagosCli
-                id={'Nuevo'}
-                onSubmit={this.handleRegistrarPagosCli}
-                idRow={''}
-                identfBanco={''}
-                consctFactura={''}
-                numUncIdUsuario={''}
-                valorPagado={''}
-                tipoPago={''}
-                numTarjeta={''}
-                observacion={''}
-                h1={'Añadir pago'}
-                nameBtn={'Añadir pago'}
-                cancelar={this.cerrarFormulario}
-            />
-            )
-        }
+        } 
         return null;
     }
 
     // Este es el método que le envio a la table para que se ejecute en ese componente y me traiga los datos de la fila que se va a modificar.
-    // Junto con este actualizo la banderaM a 'true' para que se muestre el formulario correspondiente.
-    modificar = (id, identfBanco, consctFactura, numUncIdUsuario, valorPagado, tipoPago, numTarjeta, observacion) => {
+    // Junto con este actidntfccn_bncoualizo la banderaM a 'true' para que se muestre el formulario correspondiente.
+    modificar = (id, idntfccn_bnco, cnsctvo_fctra, nmro_unco_idntfccn_usro, vlr_pgdo, tp_pgdo, nmro_trjt, obsrvcn) => {
         this.setState({
             id: id,
-            identfBanco: identfBanco,
-            consctFactura: consctFactura,
-            numUncIdUsuario: numUncIdUsuario,
-            valorPagado: valorPagado,
-            tipoPago: tipoPago,
-            numTarjeta: numTarjeta,
-            observacion:observacion,
+            idntfccn_bnco: idntfccn_bnco,
+            cnsctvo_fctra: cnsctvo_fctra,
+            nmro_unco_idntfccn_usro: nmro_unco_idntfccn_usro,
+            vlr_pgdo: vlr_pgdo,
+            tp_pgdo: tp_pgdo,
+            nmro_trjt: nmro_trjt,
+            obsrvcn: obsrvcn,
             banderaM: true,
             banderaN: false,
         })
@@ -173,9 +171,9 @@ class PagosClientes extends Component {
 
     buscador = (letra) => { // ARREGLAR ESTO (TABLAS EN DJANGO). // REVISAR BIEN ACÁ!!!
         const datosNuevos = this.state.datos.filter(function (fila) {
-            if (fila.id.toLowerCase().indexOf(letra) !== -1) { // REVISAR BIEN ACÁ!!!
+            if (fila.tp_pgdo.toLowerCase().indexOf(letra) !== -1) { // REVISAR BIEN ACÁ!!!
                 return fila;
-            } else if (fila.numUncIdUsuario.toLowerCase().indexOf(letra) !== -1) { // REVISAR BIEN ACÁ!!!
+            } else if (fila.obsrvcn.toLowerCase().indexOf(letra) !== -1) { // REVISAR BIEN ACÁ!!!
                 return fila;
             }
         })
@@ -193,8 +191,8 @@ class PagosClientes extends Component {
         return(
             <div onKeyDown={this.onKeyPressed} className="container-fluid" style={{ backgroundColor: "white", position: "absolute", top: "70px", left: "0px" }}>
                 <Encabezado
-                    titulo="payments-panel.pay_int-title"
-                    descripcion="payments-panel.pay_int-description"
+                    titulo="Panel de pagos de bancos"
+                    descripcion="Este es el panel de pagos de bancos"
                 />
                 <div className="container" style={{ justifyContent: "center" }}>
                     <form method="POST" onSubmit={this.default}>

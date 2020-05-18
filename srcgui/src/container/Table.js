@@ -152,8 +152,7 @@ class Table extends Component {
                                 <th scope="col">{this.props.t5}</th>
                                 <th scope="col">{this.props.t6}</th>
                                 <th scope="col">{this.props.t7}</th>
-                                <th scope="col">{this.props.t8}</th>
-                                <th scope="col">{this.props.t9}</th>                           
+                                <th scope="col">{this.props.t8}</th>                          
                             </tr>
                         </thead>
                         <tbody>
@@ -164,13 +163,13 @@ class Table extends Component {
                                     tipo='pagos'
                                     key={pagos.id}
                                     id={pagos.id}
-                                    identfBanco={pagos.identfBanco}
-                                    consctFactura={pagos.consctFactura}
-                                    numUncIdUsuario={pagos.numUncIdUsuario}
-                                    valorPagado={pagos.valorPagado}
-                                    tipoPago={pagos.tipoPago}
-                                    numTarjeta={pagos.numTarjeta}
-                                    observacion={pagos.observacion}
+                                    idntfccn_bnco={pagos.idntfccn_bnco}
+                                    cnsctvo_fctra={pagos.cnsctvo_fctra}
+                                    nmro_unco_idntfccn_usro={pagos.nmro_unco_idntfccn_usro}
+                                    vlr_pgdo={pagos.vlr_pgdo}
+                                    tp_pgdo={pagos.tp_pgdo}
+                                    nmro_trjt={pagos.nmro_trjt}
+                                    obsrvcn={pagos.obsrvcn}
                                 />                            
                             ))}
                         </tbody>

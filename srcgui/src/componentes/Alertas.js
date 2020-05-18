@@ -127,6 +127,7 @@ export default class alerta{
 								  						'success'
 								  					)										
 								  				})
+								  				// return 
 								  			} else { // Si se canceló la operación.		  				
 								  				Swal.fire({
 								  					icon: 'info',

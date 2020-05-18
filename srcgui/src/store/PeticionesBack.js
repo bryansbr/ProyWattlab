@@ -166,11 +166,11 @@ export default class BackService {
             .then(res => res.data)
             .catch(error => console.log(error));
     }
-    async putUpdatePagos(pagos) {
+    /*async putUpdatePagos(pagos) {
         const url = `${API_URL}/oper/pago/${pagos.id}/`;
         return axios.put(url, pagos)
             .then(res => res.data)
             .catch(error => console.log(error));
-    }
+    }*/
     
 }
