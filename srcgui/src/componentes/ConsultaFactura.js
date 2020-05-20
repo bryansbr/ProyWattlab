@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Translation, withTranslation } from 'react-i18next';
 import i18n from "i18next";
 import { Layout } from 'antd';
 import Menu from './Menu';
 import Footer from './Footer';
+import PaymentForm from './PaymentForm';
+import PaymentForms from './PaymentForms';
+//import Cards from 'react-credit-cards';
+//import 'react-credit-cards/es/styles-compiled.css'
 
 class ConsultaFactura extends React.Component {
+    constructor(props) {
+        super(props);
+        //this.PaymentForms = this.PaymentForms(this);
+    }
+
     render() {
         return (
             <Layout className="layout" style={{backgroundColor: "white"}}>
@@ -29,11 +38,14 @@ class ConsultaFactura extends React.Component {
                                     {(t, { i18n }) => <p>{t('homepage.bill-homepage.bill_btn-search')}</p>}
                                 </Translation>                            
                             </button>
-                            <button type="button" className="btn btn-success btn-default" style={{ width: "80px", height: "40px"}}>
+                            <button type="button" className="btn btn-success btn-default" style={{marginRight: "10px", width: "80px", height: "40px"}}>
                                 <Translation>
                                     {(t, { i18n }) => <p>{t('homepage.bill-homepage.bill_btn-clean')}</p>}
                                 </Translation>   
                             </button>
+                            <button type="button" onClick={this.PaymentForms} className="btn btn-success btn-default" style={{marginRight: "10px", width: "80px", height: "40px"}}>
+                                <p>Pagar</p>
+                            </button>                            
                         </div>
                     </div>
                     <div className="container pre-scrollable" style={{marginTop: "10px", maxHeight: "350px", marginBottom: "20px"}}>
