@@ -80,6 +80,19 @@ function FilaTable(props) {
                     </React.Fragment>
                 )
             }
+            case 'pagos': { // ¡NUEVO! ELIMINAR SI NO FUNCIONA. (@bryansbr)
+                return(
+                    <React.Fragment>
+                        <td>{props.idntfccn_bnco}</td>
+                        <td>{props.cnsctvo_fctra}</td>
+                        <td>{props.nmro_unco_idntfccn_usro}</td>
+                        <td>{props.vlr_pgdo}</td>
+                        <td>{props.tp_pgdo}</td>
+                        <td>{props.nmro_trjt}</td> 
+                        <td>{props.obsrvcn}</td>                                      
+                    </React.Fragment>
+                )
+            }
             default: {
                 return (null)
             }
