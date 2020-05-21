@@ -9,9 +9,10 @@ import BackService from '../store/PeticionesBack';
 import BotonVisualizar from './BotonVisualizar';
 import Factura from './Factura';
 import MAFactura from '../container/MAFactura'
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import FacturaPrueba from './FacturaPrueba';
 import jsPDF from 'jspdf'
+import { renderToString } from 'react-dom/server';
+import html2canvas from 'html2canvas';
+
 const solicitudBack = new BackService();
 const element = <MAFactura/>
 
@@ -20,7 +21,7 @@ class ConsultaFactura extends Component {
     
     state = {
         banderaVer: false,
-        id: 2,
+        id: '1',
         cnsctvo_cnsmo: {
           id: '',
           kwh: '',
@@ -71,7 +72,6 @@ class ConsultaFactura extends Component {
                 datos: res,
                 id: contrato,
                 resultado: res.length,
-                vlr_cnsmo: 14500
             })
             this.mostrarFactura()
             //notificaciones.exito()
@@ -117,30 +117,6 @@ class ConsultaFactura extends Component {
     }
 
     mostrarFactura() {
-       /* if (this.state.banderaVer === true) {
-            window.open(<Factura/>, '_blank', 'toolbar=0,location=0,menubar=0');
-            return (
-            //<div><a target="_blank" href="/ModuloAdministrador/Factura">Click aquí para ver tu factura</a></div>
-            <Router>
-                <Link target="_blank" to="/ModuloAdministrador/FacturaPDF">PDF</Link>
-                <Route exact path="/ModuloAdministrador/FacturaPDF" 
-                    render={()=>{
-                        return (
-                            <div>
-                                <Factura 
-                                    vlr_cnsmo='5'
-                                    periodoConsumo="ENERO"
-                                />
-                                <ModificarUse/>
-                            </div>
-                        )
-                    }}>
-                </Route>
-            </Router>)
-            
-        } else {
-            return null
-        }*/
         if(this.state.banderaVer === true) {
             {console.log(this.state.banderaVer)}
         return (
@@ -151,22 +127,6 @@ class ConsultaFactura extends Component {
             return  <Factura/>
         }
     }
-
-    /*handleFact() {
-        this.setState({ mode: 'fact' });
-    }
-
-    renderInputSelection() {
-        if (this.state.mode === 'fact') {
-          return (<div style={{ marginBottom: "20px" }}>
-              <Factura/>
-          </div>);
-        } else {
-          return (
-              <Factura/>
-          )
-        }
-      }*/
 
     validar = () => {
         if(this.state.banderaVer === true) {
@@ -184,36 +144,107 @@ class ConsultaFactura extends Component {
         )
     }
 
+    infoConsumo = () => {
+        return (
+            <React.Fragment>
+                <div className="jumbotron" >
+                        <div className="container">
+                            <div className="form-row" style={{textAlign: "center"}}>
+                                <div className="form-group col-md-12">
+                                <svg class="bi bi-file-text" width="8em" height="8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M4 1h8a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V3a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V3a1 1 0 00-1-1H4z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M4.5 10.5A.5.5 0 015 10h3a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 8h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 6h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 4h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+                                </svg>
+                                </div>
+                                <div className="form-group col-md-12">
+                                    <div>
+                                        <h1>FACTURA DE LOS SERVICIOS PÚBLICOS</h1>
+                                    </div>
+                                    {this.state.datos.map(factura => (
+                                        <div>
+                                            <h3 className="display-5">ID factura: {this.state.id}</h3>
+                                            <h3 className="display-5">Periodo Consumo: {factura.cnsctvo_cnsmo.prdo_cnsmo}</h3>
+                                            <h3 className="display-5">ID contrato: {factura.cnsctvo_cnsmo.idntfccn_cntrto.id}</h3>
+                                            <h3 className="display-5">Estrato socioeconómico: {factura.cnsctvo_cnsmo.idntfccn_cntrto.estrt_scl}</h3>
+                                            <h3 className="display-5">Dirección: {factura.cnsctvo_cnsmo.idntfccn_cntrto.drccn}</h3>
+                                            <h3 className="display-5">Cliente: {factura.cnsctvo_cnsmo.idntfccn_cntrto.cliente}</h3>
+                                            <h3 className="display-5">Valor KwH: {factura.cnsctvo_trfa.vlr_kwh}</h3>
+                                            <h3 className="display-5">Consumo en kwH: {factura.cnsctvo_cnsmo.kwh}</h3>
+                                            <h3 className="display-5">Valor consumo: {factura.vlr_cnsmo}</h3>
+                                            <h3 className="display-5">Valor interés mora: {factura.vlr_intrss_mra}</h3>
+                                            <h2 className="display-5">Total a pagar: {factura.vlr_ttl}</h2>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </React.Fragment>
+        )
+    }
+    
     generatePDF = () => {
-        var doc = new jsPDF('p', 'pt');
-        var idFactura = ("ID Factura: "+this.state.id);
+        var doc = new jsPDF('p', 'pt', 'letter');
+
+       /* var idFactura = ("ID Factura: "+this.state.id);
         var valorConsumo = ("Valor consumo: "+this.state.vlr_cnsmo);
-        var valorMora = ("Valor mora: "+this.state.vlr_intrss_mra);
-        var valorReconexion = ("Valor reconexión: "+this.state.vlr_rcnxn);
-        var valorTotal = ("Valor total: "+this.state.vlr_ttl);
+        var valorMora = ("Valor mora: "+this.state.datos.vlr_intrss_mra);
+        var valorReconexion = ("Valor reconexión: "+this.state.datos.vlr_rcnxn);
+        var valorTotal = ("Valor total: "+this.state.datos.vlr_ttl);*/
+
+        var logo = new Image();
+        logo.src = '../imagenes/imagotipo.png';
         
-        doc.text(100, 40, 'FACTURA DE SERVICIOS PÚBLICOS')
-        
-        doc.setFont('helvetica')
+        doc.setFont('calibri')
         doc.setFontType('normal')
-        doc.text(40, 60, idFactura)
+        const string = renderToString(<this.infoConsumo />);
+        doc.setFont('calibri')
+        doc.fromHTML(string);
+        doc.setFont('calibri')
+        /*doc.text(40, 60, idFactura)
         doc.text(40, 80, valorConsumo)
         doc.text(40, 100, valorMora)
         doc.text(40, 120, valorReconexion)
-        doc.text(40, 140, valorTotal)
+        doc.text(40, 140, valorTotal)*/
       
-        doc.setFont('helvetica')
-        doc.setFontType('normal')    
-      
-        doc.save('Factura.pdf')
+        doc.save('Factura'+(this.state.id)+'.pdf')
+    }
+
+    /*printPDF = () => {
+        const domElement = document.getElementById('root');
+        html2canvas(domElement, {
+          onclone: document => {
+            document.getElementById('print').style.visibility = 'hidden';
+          }
+        }).then(canvas => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPdf();
+          pdf.addImage(imgData, 'JPEG', 10, 20, 200, 200);
+          pdf.save(`${new Date().toISOString()}.pdf`);
+        });
+    };*/
+
+    prueba = () => {
+        const options = {
+            filename: "Document.pdf",
+            image: {type: 'jpeg'},
+            html2canvas: {},
+            jsPDF: {orientation: 'landscape'}
+        };
+        const content = document.getElementById('element-to-export');
+
+        html2canvas()
+        .from(content)
+        .set(options)
+        .save()
     }
 
     mostrarInfoFactura = () => {
        if (this.state.banderaVer === true) {
             return (
                 <React.Fragment>
-                    <div className="jumbotron" >
-                        <div className="container">
+                    <div className="jumbotron" id="element-to-export">
+                        <div className="container" id="me">
                             <div className="form-row" style={{textAlign: "center"}}>
                                 <div className="form-group col-md-12">
                                 <svg class="bi bi-file-text" width="8em" height="8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -241,7 +272,7 @@ class ConsultaFactura extends Component {
                             </div>
                         </div>
                             <div className="form-row">
-                            <button type="submit" target="_blank" onClick={this.generatePDF} className="btn btn-primary mx-auto d-block col-md-5" >Download PDF</button>
+                            <button type="submit" target="_blank" id="print" onClick={this.generatePDF} className="btn btn-primary mx-auto d-block col-md-5" >Download PDF</button>
                             <button name="cancelar" className="btn btn-danger mx-auto d-block col-md-5">Pagar online</button>
                         </div>
                     </div>
