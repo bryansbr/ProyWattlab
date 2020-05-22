@@ -12,6 +12,8 @@ import MAFactura from '../container/MAFactura'
 import jsPDF from 'jspdf'
 import { renderToString } from 'react-dom/server';
 import html2canvas from 'html2canvas';
+import ImagePublicidad from './Image';
+var Barcode = require('react-barcode');
 
 const solicitudBack = new BackService();
 const element = <MAFactura/>
@@ -104,7 +106,6 @@ class ConsultaFactura extends Component {
         })
     }
 
-
     async componentDidMount() {
         
     }
@@ -133,117 +134,36 @@ class ConsultaFactura extends Component {
             this.mostrarFactura()
         }
     }
+    
+    generarF =  () =>{
+        var h1 = document.getElementById('Factura')
+        var image = new Image()
+        image.src='../imagenes/imagotipo.png'
+        var doc = new jsPDF()
+        
+        doc.setFont("helvetica");
+        doc.setFontType("bold");
+        doc.text(50, 70, 'FACTURA DE LOS SERVICIOS PÚBLICOS');
+        doc.line(20, 75, 190, 75);
+        doc.fromHTML(h1,15,80)
+        doc.addImage(image, 'JPEG', 25, 10, 155, 50)
 
-    mostrarTable = () => {
-        return (
-            <React.Fragment>
-                <div className="container pre-scrollable" style={{ marginTop: "10px", maxHeight: "350px", marginBottom: "20px" }}>
-                    <Table t1='Id' t2='Valor consumo' t3='Valor mora' t4='Valor reconexión' t5='Valor a pagar' t6='Fecha pago' t7='Fecha corte' t8='Visualizar' tabla='factura' datos={this.state.datos} verFactura={this.verFactura}/>
-                </div>
-            </React.Fragment>
-        )
-    }
+        var barcode = new Image()
+        barcode.src='../imagenes/codigo.jpg'
+        doc.addImage(barcode, 'JPEG', 60, 193, 90, 35)
 
-    infoConsumo = () => {
-        return (
-            <React.Fragment>
-                <div className="jumbotron" >
-                        <div className="container">
-                            <div className="form-row" style={{textAlign: "center"}}>
-                                <div className="form-group col-md-12">
-                                <svg class="bi bi-file-text" width="8em" height="8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M4 1h8a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V3a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V3a1 1 0 00-1-1H4z" clip-rule="evenodd"/>
-                                    <path fill-rule="evenodd" d="M4.5 10.5A.5.5 0 015 10h3a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 8h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 6h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 4h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
-                                </svg>
-                                </div>
-                                <div className="form-group col-md-12">
-                                    <div>
-                                        <h1>FACTURA DE LOS SERVICIOS PÚBLICOS</h1>
-                                    </div>
-                                    {this.state.datos.map(factura => (
-                                        <div>
-                                            <h3 className="display-5">ID factura: {this.state.id}</h3>
-                                            <h3 className="display-5">Periodo Consumo: {factura.cnsctvo_cnsmo.prdo_cnsmo}</h3>
-                                            <h3 className="display-5">ID contrato: {factura.cnsctvo_cnsmo.idntfccn_cntrto.id}</h3>
-                                            <h3 className="display-5">Estrato socioeconómico: {factura.cnsctvo_cnsmo.idntfccn_cntrto.estrt_scl}</h3>
-                                            <h3 className="display-5">Dirección: {factura.cnsctvo_cnsmo.idntfccn_cntrto.drccn}</h3>
-                                            <h3 className="display-5">Cliente: {factura.cnsctvo_cnsmo.idntfccn_cntrto.cliente}</h3>
-                                            <h3 className="display-5">Valor KwH: {factura.cnsctvo_trfa.vlr_kwh}</h3>
-                                            <h3 className="display-5">Consumo en kwH: {factura.cnsctvo_cnsmo.kwh}</h3>
-                                            <h3 className="display-5">Valor consumo: {factura.vlr_cnsmo}</h3>
-                                            <h3 className="display-5">Valor interés mora: {factura.vlr_intrss_mra}</h3>
-                                            <h2 className="display-5">Total a pagar: {factura.vlr_ttl}</h2>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </React.Fragment>
-        )
+        var imagePublicidad = new Image()
+        imagePublicidad.src='../imagenes/publicidadTR.jpg'
+        doc.addImage(imagePublicidad, 'JPEG', 30, 230, 150, 50)
+
+        doc.save("Factura"+(this.state.id)+".pdf")    
     }
     
-    generatePDF = () => {
-        var doc = new jsPDF('p', 'pt', 'letter');
-
-       /* var idFactura = ("ID Factura: "+this.state.id);
-        var valorConsumo = ("Valor consumo: "+this.state.vlr_cnsmo);
-        var valorMora = ("Valor mora: "+this.state.datos.vlr_intrss_mra);
-        var valorReconexion = ("Valor reconexión: "+this.state.datos.vlr_rcnxn);
-        var valorTotal = ("Valor total: "+this.state.datos.vlr_ttl);*/
-
-        var logo = new Image();
-        logo.src = '../imagenes/imagotipo.png';
-        
-        doc.setFont('calibri')
-        doc.setFontType('normal')
-        const string = renderToString(<this.infoConsumo />);
-        doc.setFont('calibri')
-        doc.fromHTML(string);
-        doc.setFont('calibri')
-        /*doc.text(40, 60, idFactura)
-        doc.text(40, 80, valorConsumo)
-        doc.text(40, 100, valorMora)
-        doc.text(40, 120, valorReconexion)
-        doc.text(40, 140, valorTotal)*/
-      
-        doc.save('Factura'+(this.state.id)+'.pdf')
-    }
-
-    /*printPDF = () => {
-        const domElement = document.getElementById('root');
-        html2canvas(domElement, {
-          onclone: document => {
-            document.getElementById('print').style.visibility = 'hidden';
-          }
-        }).then(canvas => {
-          const imgData = canvas.toDataURL('image/png');
-          const pdf = new jsPdf();
-          pdf.addImage(imgData, 'JPEG', 10, 20, 200, 200);
-          pdf.save(`${new Date().toISOString()}.pdf`);
-        });
-    };*/
-
-    prueba = () => {
-        const options = {
-            filename: "Document.pdf",
-            image: {type: 'jpeg'},
-            html2canvas: {},
-            jsPDF: {orientation: 'landscape'}
-        };
-        const content = document.getElementById('element-to-export');
-
-        html2canvas()
-        .from(content)
-        .set(options)
-        .save()
-    }
-
     mostrarInfoFactura = () => {
        if (this.state.banderaVer === true) {
             return (
                 <React.Fragment>
-                    <div className="jumbotron" id="element-to-export">
+                    <div className="jumbotron">
                         <div className="container" id="me">
                             <div className="form-row" style={{textAlign: "center"}}>
                                 <div className="form-group col-md-12">
@@ -252,27 +172,29 @@ class ConsultaFactura extends Component {
                                     <path fill-rule="evenodd" d="M4.5 10.5A.5.5 0 015 10h3a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 8h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 6h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5zm0-2A.5.5 0 015 4h6a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
                                 </svg>
                                 </div>
-                                <div className="form-group col-md-12">
+                                <div className="form-group col-md-12"  id="Factura" style={{fontFamily: "helvetica", fontStyle: ""}}>
                                     {this.state.datos.map(factura => (
                                         <div>
-                                            <h3 className="display-5">ID factura: {this.state.id}</h3>
-                                            <h3 className="display-5">Periodo Consumo: {factura.cnsctvo_cnsmo.prdo_cnsmo}</h3>
-                                            <h3 className="display-5">ID contrato: {factura.cnsctvo_cnsmo.idntfccn_cntrto.id}</h3>
-                                            <h3 className="display-5">Estrato socioeconómico: {factura.cnsctvo_cnsmo.idntfccn_cntrto.estrt_scl}</h3>
-                                            <h3 className="display-5">Dirección: {factura.cnsctvo_cnsmo.idntfccn_cntrto.drccn}</h3>
-                                            <h3 className="display-5">Cliente: {factura.cnsctvo_cnsmo.idntfccn_cntrto.cliente}</h3>
-                                            <h3 className="display-5">Valor KwH: {factura.cnsctvo_trfa.vlr_kwh}</h3>
-                                            <h3 className="display-5">Consumo en kwH: {factura.cnsctvo_cnsmo.kwh}</h3>
-                                            <h3 className="display-5">Valor consumo: {factura.vlr_cnsmo}</h3>
-                                            <h3 className="display-5">Valor interés mora: {factura.vlr_intrss_mra}</h3>
-                                            <h2 className="display-5">Total a pagar: {factura.vlr_ttl}</h2>
+                                            <h5 className="display-5">Número de factura: {this.state.id}</h5>
+                                            <h5 className="display-5">Periodo Consumo: {factura.cnsctvo_cnsmo.prdo_cnsmo}</h5>
+                                            <h5 className="display-5">Identificación contrato: {factura.cnsctvo_cnsmo.idntfccn_cntrto.id}</h5>
+                                            <h5 className="display-5">Estrato socioeconómico: {factura.cnsctvo_cnsmo.idntfccn_cntrto.estrt_scl}</h5>
+                                            <h5 className="display-5">Dirección de residencia: {factura.cnsctvo_cnsmo.idntfccn_cntrto.drccn}</h5>
+                                            <h5 className="display-5">Identificación cliente: {factura.cnsctvo_cnsmo.idntfccn_cntrto.cliente}</h5>
+                                            <h5 className="display-5">Valor del KwH: {factura.cnsctvo_trfa.vlr_kwh}</h5>
+                                            <h5 className="display-5">Consumo en kwH: {factura.cnsctvo_cnsmo.kwh}</h5>
+                                            <h5 className="display-5">Valor consumo: {factura.vlr_cnsmo}</h5>
+                                            <h5 className="display-5">Valor interés mora: {factura.vlr_intrss_mra}</h5>
+                                            <h5 className="display-5">Valor de reconexión: {factura.vlr_rcnxn}</h5>
+                                            <h3 className="display-5" style={{color: "red"}}>Total a pagar: {factura.vlr_ttl}</h3>
+                                            <Barcode value={factura.vlr_ttl}/>,
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         </div>
                             <div className="form-row">
-                            <button type="submit" target="_blank" id="print" onClick={this.generatePDF} className="btn btn-primary mx-auto d-block col-md-5" >Download PDF</button>
+                            <button type="submit" target="_blank" id="print" onClick={this.generarF} className="btn btn-primary mx-auto d-block col-md-5" >Download PDF</button>
                             <button name="cancelar" className="btn btn-danger mx-auto d-block col-md-5">Pagar online</button>
                         </div>
                     </div>
@@ -288,26 +210,6 @@ class ConsultaFactura extends Component {
             buscador: e.target.value.toLowerCase()
         })
         //this.buscador(e.target.value.toLowerCase());
-    }
-
-    onKeyPressed = (e) => {
-        if (e.keyCode === 8) {
-           // this.solicitud()
-        }
-    }
-
-    buscador = (numero) => {
-        const datosNuevos = this.state.datos.filter(function (fila) {
-            if (fila.contrato.toLowerCase().indexOf(numero) !== -1) {
-                return fila;
-            } else if (fila.id.toLowerCase().indexOf(numero) !== -1) {
-                return fila;
-            }
-        })
-        this.setState({
-            datos: datosNuevos,
-            resultado: datosNuevos.length
-        })
     }
 
     default = (e) => {
