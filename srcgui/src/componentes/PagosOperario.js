@@ -69,8 +69,6 @@ class PagosOperario extends Component {
                 id: contrato,
                 resultado: res.length,
             })
-            this.mostrarFactura()
-            //notificaciones.exito()
         })
             .catch(error => {
                 console.log(error)
@@ -78,7 +76,7 @@ class PagosOperario extends Component {
                     datos: [],
                     resultado: 0,
                     estado: true,
-                    banderaPago:false,
+                    banderaPago: false,
 
                 })
                 //notificaciones.error()
@@ -105,18 +103,7 @@ class PagosOperario extends Component {
         })
     }
 
-    mostrarFactura() {
-        if (this.state.banderaVer === true) {
-            { console.log(this.state.banderaVer) }
-            return (
 
-                <Factura />
-            )
-        }
-        else {
-            return <Factura />
-        }
-    }
 
     validar = () => {
         if (this.state.banderaPago === true) {
@@ -155,6 +142,9 @@ class PagosOperario extends Component {
             {console.log("Factura pagada?"+this.state.banderaPagada)}
     }
 
+    //notificaciones.confirmarPago()
+
+
     mostrarForPago = () => {
         if (this.state.banderaPago === true) {
             console.log(this.state.datos[0].id)
@@ -172,11 +162,11 @@ class PagosOperario extends Component {
                     </React.Fragment>             
                 )
             } else {
-                
+
                 return (
-                    <React.Fragment>    
+                    <React.Fragment>
                         <button type="button" name="pagar" onClick={this.pagarTarjeta} className="btn  btn-lg btn-danger mx-auto d-block col-md-5">Pagar Online</button>
-                        <button type="button" name="pagar" onClick={this.pagarEfectivo} className="btn  btn-lg btn-success mx-auto d-block col-md-5">Pagar en Efectivo</button>  
+                        <button type="button" name="pagar" onClick={this.pagarEfectivo} className="btn  btn-lg btn-success mx-auto d-block col-md-5">Pagar en Efectivo</button>
                     </React.Fragment>
                 )
             }
@@ -224,7 +214,7 @@ class PagosOperario extends Component {
                             </div>
                         </div>
                         <div className="form-row">
-                            
+
                             {this.mostratBotonPago()}
                         </div>
                     </div>
@@ -248,12 +238,12 @@ class PagosOperario extends Component {
 
     render() {
         return (
-                <div>
+            <div>
                 <Encabezado
                     titulo="Panel de pagos de factura"
                     descripcion="Este es el panel de pagos de los clientes"
                 />
-                
+
                 <div className="container" style={{ justifyContent: "center", marginTop: "20px" }}>
                     <form method="POST" onSubmit={(event) => this.handleConsultarFactura(event, this.state.buscador)} className="needs-validation" noValidate>
                         <div className="form-row justify-content-between">
@@ -286,8 +276,8 @@ class PagosOperario extends Component {
 
 
                 </div>
-                </div>
-            
+            </div>
+
         );
     }
 }
