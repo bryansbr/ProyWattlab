@@ -41,8 +41,7 @@ class PagosOperario extends Component {
         this.handleFact = this.handleFact.bind(this);
     }*/
 
-    handleNewPagosBancos = async (e, pagos) => {
-        e.preventDefault()
+    handleNewPagosBancos = async (pagos) => {
         console.log(pagos)
         solicitudBack.postRegisterPagos(pagos
         ).then(res => {
@@ -67,8 +66,6 @@ class PagosOperario extends Component {
                 id: contrato,
                 resultado: res.length,
             })
-            this.mostrarFactura()
-            //notificaciones.exito()
         })
             .catch(error => {
                 console.log(error)
@@ -76,7 +73,7 @@ class PagosOperario extends Component {
                     datos: [],
                     resultado: 0,
                     estado: true,
-                    banderaPago:false,
+                    banderaPago: false,
 
                 })
                 //notificaciones.error()
@@ -103,18 +100,7 @@ class PagosOperario extends Component {
         })
     }
 
-    mostrarFactura() {
-        if (this.state.banderaVer === true) {
-            { console.log(this.state.banderaVer) }
-            return (
 
-                <Factura />
-            )
-        }
-        else {
-            return <Factura />
-        }
-    }
 
     validar = () => {
         if (this.state.banderaPago === true) {
@@ -129,9 +115,19 @@ class PagosOperario extends Component {
         })
     }
 
-    pagarEfectivo = ()=>{
-        notificaciones.confirmarPago()
+    pagarEfectivo = () => {
+
+        this.handleNewPagosBancos({
+            'cnsctvo_fctra': this.state.datos[0].id,
+            'vlr_pgdo': this.state.datos[0].vlr_ttl,
+            'tp_pgdo': 'Efectivo',
+            'obsrvcn': 'Efectivo'
+        })
+
     }
+
+    //notificaciones.confirmarPago()
+
 
     mostrarForPago = () => {
         if (this.state.banderaPago === true) {
@@ -147,14 +143,14 @@ class PagosOperario extends Component {
                 return (
                     <React.Fragment>
                         <button style={{ cursor: "default" }} type="button" name="info" className="btn btn-lg btn-success mx-auto d-block col-md-5 " disabled>La factura ya esta cancelada</button>
-                    </React.Fragment>             
+                    </React.Fragment>
                 )
             } else {
-                
+
                 return (
-                    <React.Fragment>    
+                    <React.Fragment>
                         <button type="button" name="pagar" onClick={this.pagarTarjeta} className="btn  btn-lg btn-danger mx-auto d-block col-md-5">Pagar Online</button>
-                        <button type="button" name="pagar" onClick={this.pagarEfectivo} className="btn  btn-lg btn-success mx-auto d-block col-md-5">Pagar en Efectivo</button>  
+                        <button type="button" name="pagar" onClick={this.pagarEfectivo} className="btn  btn-lg btn-success mx-auto d-block col-md-5">Pagar en Efectivo</button>
                     </React.Fragment>
                 )
             }
@@ -202,7 +198,7 @@ class PagosOperario extends Component {
                             </div>
                         </div>
                         <div className="form-row">
-                            
+
                             {this.mostratBotonPago()}
                         </div>
                     </div>
@@ -226,12 +222,12 @@ class PagosOperario extends Component {
 
     render() {
         return (
-                <div>
+            <div>
                 <Encabezado
                     titulo="Panel de pagos de bancos"
                     descripcion="Este es el panel de pagos de bancos"
                 />
-                
+
                 <div className="container" style={{ justifyContent: "center", marginTop: "20px" }}>
                     <form method="POST" onSubmit={(event) => this.handleConsultarFactura(event, this.state.buscador)} className="needs-validation" noValidate>
                         <div className="form-row justify-content-between">
@@ -264,8 +260,8 @@ class PagosOperario extends Component {
 
 
                 </div>
-                </div>
-            
+            </div>
+
         );
     }
 }

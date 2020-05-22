@@ -66,7 +66,7 @@ const PaymentForm = (props) => {
 
     const validar = (event) =>{
         event.preventDefault();
-            props.onSubmit(event,{ 'idntfccn_bnco':state.nBanco,
+            props.onSubmit({ 'idntfccn_bnco':state.nBanco,
             'cnsctvo_fctra':props.consFact, 
             'vlr_pgdo':props.valorPagado,
             'tp_pgdo':'Debito',
