@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-class TipoId (models.Model): 
+class TipoId(models.Model): 
     dscrpcn_tpo_idntfcn = models.CharField(max_length=50)
     def __str__(self):
         return self.dscrpcn_tpo_idntfcn
@@ -12,7 +12,7 @@ class TipoCliente(models.Model):
     def __str__(self):
         return self.dscrpcn_tpo_clnte
 
-class Tarifa (models.Model):
+class Tarifa(models.Model):
     vlr_kwh = models.FloatField(default=0)
     inco_vgca = models.DateTimeField(auto_now_add=True)
     obsrvcn =models.CharField(max_length=150)
@@ -32,7 +32,7 @@ class Cliente(models.Model):
     def __str__(self):
         return self.prmr_nmbre+' '+self.prmr_aplldo
     
-class Contrato (models.Model): 
+class Contrato(models.Model): 
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     estrt_scl = models.PositiveIntegerField(default=0)
     drccn = models.CharField(max_length=150, default='')
@@ -41,7 +41,7 @@ class Contrato (models.Model):
     def __str__(self):
         return self.drccn
     
-class Consumo (models.Model):
+class Consumo(models.Model):
     idntfccn_cntrto = models.ForeignKey(Contrato, on_delete= models.CASCADE)
     kwh = models.IntegerField(default=0)
     prdo_cnsmo = models.CharField(max_length=50, default='')
@@ -49,6 +49,12 @@ class Consumo (models.Model):
     
     def __str__(self):
         return self.obsrvcn
+    
+def save_consumo(sender, instance, **kwargs):
+    Facturacion.save(sender)
+
+post_save.connect(save_consumo, sender= Consumo)
+
     
 class Banco(models.Model): 
     nmbre_bnco = models.CharField(max_length=50)
@@ -74,6 +80,7 @@ class Facturacion(models.Model):
     def __str__(self):
         return self.obsrvcn
     
+
 class Pago(models.Model):
     idntfccn_bnco = models.ForeignKey(Banco, on_delete=models.CASCADE, null= True)
     cnsctvo_fctra = models.OneToOneField(Facturacion, on_delete=models.CASCADE)
