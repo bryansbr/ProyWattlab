@@ -1,11 +1,11 @@
-// ¡NUEVO! ELIMINAR SI NO FUNCIONA. (@bryansbr)
 import React, { Component } from 'react';
-//import { useTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 import Encabezado from './Encabezado';
 import Table from '../container/Table';
 import FormPBanco from './FormPBanco';
 import BackService from '../store/PeticionesBack';
-const solicitudBack = new BackService(); // Datos al back-end.
+const solicitudBack = new BackService();
 
 class PagosBanco extends Component {
 
@@ -190,8 +190,8 @@ class PagosBanco extends Component {
         return(
             <div onKeyDown={this.onKeyPressed} className="container-fluid" style={{ backgroundColor: "white", position: "absolute", top: "70px", left: "0px" }}>
                 <Encabezado
-                    titulo="Panel de pagos de bancos"
-                    descripcion="Este es el panel de pagos de bancos"
+                    titulo={i18n.t('banks-panel.bks_int-title')}
+                    descripcion={i18n.t('banks-panel.bks_int-description')}
                 />
                 <div className="container" style={{ justifyContent: "center" }}>
                     <form method="POST" onSubmit={this.default}>
@@ -210,7 +210,7 @@ class PagosBanco extends Component {
                                 </div>
                             </div>
                             <div className="col-lg-1 col-md-1 col-auto mr-auto">
-                                <button className="btn btn-success" type="button">Buscar</button>
+                                <button className="btn btn-success" type="button">{i18n.t('users-panel.usr_btn-search')}</button>
                             </div>
                             <div className="col-auto">
                                 <button className="btn btn-danger" type="button" onClick={this.nuevo}>
@@ -219,12 +219,12 @@ class PagosBanco extends Component {
                                         <path fillRule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 100-6 3 3 0 000 6zm7.5-3a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clipRule="evenodd" />
                                         <path fillRule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clipRule="evenodd" />
                                     </svg>
-                                    &nbsp; Nuevo
+                                    &nbsp; {i18n.t('users-panel.usr_btn-new')}
                                 </button>
                             </div>
                             <div className="alert alert-success col-md-6">
-                                Resultados:
-                                <strong> {this.state.resultado} filas encontradas.</strong>
+                                {i18n.t('users-panel.usr_btn-results')}:
+                                <strong> {this.state.resultado} {i18n.t('users-panel.usr_btn-rows-found')}.</strong>
                             </div>
                             {this.mostrarTable()}                                                                               
                         </div>                      
@@ -236,4 +236,4 @@ class PagosBanco extends Component {
     }
 }
 
-export default PagosBanco;
+export default withTranslation()(PagosBanco);

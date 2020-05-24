@@ -1,6 +1,7 @@
-
-import Encabezado from './Encabezado';
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
+import Encabezado from './Encabezado';
 import Table from '../container/Table'
 import ModificarUse from './ModificarUse'
 import BackService from '../store/PeticionesBack';
@@ -16,12 +17,11 @@ class Usuarios extends Component {
         solicitudBack.postRegisterUser(usuario
         ).then(res => {
             console.log(res)
+            notificaciones.nuevoUsuarioExito()
             this.solicitud()
-            notificaciones.exito()
-        })
-            .catch(error => {
-                console.log(error)
-                notificaciones.error()
+        }).catch(error => {
+            console.log(error)
+            notificaciones.nuevoUsuarioError()
             })
         this.cerrarFormulario()
 
@@ -29,29 +29,30 @@ class Usuarios extends Component {
 
     handleModificarUsuario = async (e, usuario) => {
         e.preventDefault()
+        console.log(usuario)
         solicitudBack.putUpdateUser(usuario
         ).then(res => {
             console.log(res)
             this.solicitud()
-            notificaciones.exito()
-        })
-            .catch(error => {
-                console.log(error)
-                notificaciones.error()
+            notificaciones.modificarUsuarioExito()
+        }).catch(error => {
+            console.log(error)
+            notificaciones.modificarUsuarioError()
             })
         this.cerrarFormulario()
     }
 
-
     cambiarEstadoUser = (usuario) => {
-        //console.log(usuario)
+        console.log(usuario)
         solicitudBack.putUpdateUser(usuario
         ).then(res => {
-            //console.log(res)
+            console.log(res)
             this.solicitud()
-
+            notificaciones.cambiarEstadoUsuarioExito()
+        }).catch(error => {
+            console.log(error)
+            notificaciones.cambiarEstadoUsuarioError()
         })
-            .catch(error => console.log(error))
     }
 
     //Con estos estados me doy cuenta que boton se presiono si el modificar o el nuevo
@@ -86,8 +87,6 @@ class Usuarios extends Component {
             })
     }
 
-
-
     cerrarFormulario = () => {
         this.setState({
             banderaM: false,
@@ -100,12 +99,11 @@ class Usuarios extends Component {
         return (
             <React.Fragment>
                 <div className="container pre-scrollable" style={{ marginTop: "10px", maxHeight: "350px", marginBottom: "20px" }}>
-                    <Table t1='Id' t2='Usuario' t3='Nombre' t4='Apellido' t5='Email' t6='Perfil' t7='Modificar' t8='Estado' tabla='usuario' datos={this.state.datos} modificar={this.modificar} cambiarEstado={this.cambiarEstadoUser} />
+                    <Table t1='ID' t2='Usuario' t3='Nombre' t4='Apellido' t5='Correo' t6='Perfil' t7='Modificar' t8='Estado' tabla='usuario' datos={this.state.datos} modificar={this.modificar} cambiarEstado={this.cambiarEstadoUser} />
                 </div>
             </React.Fragment>
         )
     }
-
 
     //En este solicito los datos a la api, y los guardo en el estado datos.
     //Con este metodo de acuerdo al boton que haya presionado si modificar o nuevo, se llama el componente formulario
@@ -223,7 +221,7 @@ class Usuarios extends Component {
                                 </div>
                             </div>
                             <div className="col-lg-1 col-md-1 col-auto mr-auto">
-                                <button className="btn btn-success" type="button">Buscar</button>
+                                <button className="btn btn-success" type="button">{i18n.t('users-panel.usr_btn-search')}</button>
                             </div>
                             <div className="col-auto">
                                 <button className="btn btn-danger" type="button" onClick={this.nuevo}>
@@ -231,14 +229,13 @@ class Usuarios extends Component {
                                         <path fillRule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 100-6 3 3 0 000 6zm7.5-3a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clipRule="evenodd" />
                                         <path fillRule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clipRule="evenodd" />
                                     </svg>
-                                    &nbsp;  Nuevo
+                                    &nbsp; {i18n.t('users-panel.usr_btn-new')}
                                 </button>
                             </div>
 
                             <div className="alert alert-success col-md-6">
-                                Resultados:
-                                <strong> {this.state.resultado} filas encontradas.</strong>
-
+                                {i18n.t('users-panel.usr_btn-results')}:
+                                <strong> {this.state.resultado} {i18n.t('users-panel.usr_btn-rows-found')}.</strong>
                             </div>
                             {this.mostrarTable()}
                         </div>
@@ -251,4 +248,4 @@ class Usuarios extends Component {
     }
 }
 
-export default Usuarios;
+export default withTranslation()(Usuarios);

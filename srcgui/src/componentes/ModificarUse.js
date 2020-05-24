@@ -1,10 +1,13 @@
+import React, { Fragment, useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import React, { useRef, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form';
+//import alerta from '../componentes/Alertas';
 
 function ModificarUse(props) {
-    const i18n = useTranslation();
     var titulo= props.h1;
     var nameBtn= props.nameBtn;
+    const i18n = useTranslation();
+    //const notificaciones = new alerta();
     //La referencia para poder enfocar
     const myRef = useRef();
 
@@ -54,55 +57,46 @@ function ModificarUse(props) {
         })
     }
 
-    const onChangeContrasena = e =>{    
+    const onChangeContrasena = e => {    
         setConPass({
             ...conPassword,
             [e.target.name]: e.target.value
         })
         
-         if(usuario.password!==e.target.value){
+         if(usuario.password!==e.target.value) {
             setConPass({
                 [e.target.name]: e.target.value,
                 confirmar:false,
-                texto:'las contraseñas no coinciden',
+                texto:'Las contraseñas no coinciden',
                 clase: 'badge badge-danger'
-                
             })
-        }else if(e.target.value===''){
+        } else if(e.target.value==='') {
             setConPass({
                 [e.target.name]: e.target.value,
                 confirmar:false,
                 texto:'Es necesario que los campos no estén vacios',
                 clase: 'badge badge-warning'
-                
             })
-
         }
-        else{
+        else {
             setConPass({
                 [e.target.name]: e.target.value,
                 confirmar:true,
-                texto:'las contraseñas coinciden',
+                texto:'Las contraseñas coinciden',
                 clase: 'badge badge-success'
-                
             })
         }
         console.log(conPassword)
-
     }
-
-
-
 
     //Cada vez que se escriba en un input el valor se almacena en los estados
     const onChange = e => {
-
         setUsuario({
             ...usuario,
             [e.target.name]: e.target.value,
         })
 
-        if (e.target.name === 'identificacion' || e.target.name === 'tipo_usuario') {
+        if(e.target.name === 'identificacion' || e.target.name === 'tipo_usuario') {
             setUsuario({
                 ...usuario,
                 profile: {
@@ -113,33 +107,31 @@ function ModificarUse(props) {
             })
         }
 
-        if(e.target.name==='password'){
-            if(conPassword.cPassword!==e.target.value){
+        if(e.target.name==='password') {
+            if(conPassword.cPassword!==e.target.value) {
                 setConPass({
                     ...conPassword,
                     confirmar:false,
-                    texto:'las contraseñas no coinciden',
+                    texto:'Las contraseñas no coinciden',
                     clase: 'badge badge-danger'
                     
                 })
-            }else if(e.target.value===''){
+            } else if(e.target.value==='') {
                 setConPass({
                     ...conPassword,
                     confirmar:false,
                     texto:'Es necesario que los campos no estén vacios',
                     clase: 'badge badge-warning'
-                    
                 })
-    
-            }else{
-            setConPass({
-                ...conPassword,
-                confirmar:true,
-                texto:'las contraseñas coinciden',
-                clase: 'badge badge-success'
-                
-            })
-        }
+            }
+            else {
+                setConPass({
+                    ...conPassword,
+                    confirmar:true,
+                    texto:'Las contraseñas coinciden',
+                    clase: 'badge badge-success'  
+                })
+            }
         }
         console.log(usuario)       
     }
@@ -159,7 +151,6 @@ function ModificarUse(props) {
                         </div>
                         <span className={conPassword.clase}>{conPassword.texto}</span>
                     </div>
-
                     <h2>{i18n.t('users-panel.usr_profile')}</h2>
                     <div className="form-group">
                         <label htmlFor="inputAddress">{i18n.t('users-panel.usr_id')}</label>
@@ -167,75 +158,118 @@ function ModificarUse(props) {
                     </div>
                 </React.Fragment>
             )
-        } else {
+        }
+        else {
             return null
         }
     }
 
-    const validar = (event) =>{
+    const validar = (event) => {
         event.preventDefault();
-        if(conPassword.confirmar===true){
+        if(conPassword.confirmar === true) {
             props.onSubmit(event,usuario)
-        }else{
-            console.log("Aqui va un mensaje de que no coincide las contraseñas")
-            console.log(conPassword.confirmar)
-
         }
-
+        else {
+            console.log("Aqui va un mensaje de que no coinciden las contraseñas")
+            console.log(conPassword.confirmar)
+        }
     }
 
     return (
-        <div className="container">
-            <br /><br /><br /><br /><br />
-            <h1 className="text-center">{i18n.t(titulo)}</h1>
-            <br /><br /><br />
-            <form method="POST" onSubmit={(event) => validar(event)}>
-                <div className="form-row">
-                    <div className="form-group col-md-6">
-                        <label htmlFor="inputUsuario">{i18n.t('users-panel.usr_user-name')}</label>
-                        <input required name="username" onChange={onChange} ref={myRef} type="text" value={usuario.username} className="form-control" id="inputUsuario" />
+        <Fragment>
+            <div className="container">
+                <br /><br /><br /><br /><br />
+                <h1 className="text-center">{i18n.t(titulo)}</h1>
+                <br /><br /><br />
+                <form method="POST" onSubmit={(event) => validar(event)}>
+                    <div className="form-row">
+                        <div className="form-group col-md-6">
+                            <label htmlFor="inputUsuario">{i18n.t('users-panel.usr_user-name')}</label>
+                            <input required
+                                name="username"
+                                onChange={onChange} 
+                                ref={myRef}
+                                type="text" 
+                                value={usuario.username} 
+                                className="form-control" 
+                                id="inputUsuario"
+                                minlength="3"
+                                maxlength="20"
+                                pattern="[A-Za-z0-9]{1,15}"
+                                title="El apodo del usuario no debe contener caracteres especiales y debe tener una longitud entre (3 y 15). e.j. juanperez123"
+                            />
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="inputNombre">{i18n.t('users-panel.usr_name')}</label>
+                            <input required
+                                name="first_name" 
+                                onChange={onChange} 
+                                type="text" 
+                                value={usuario.first_name} 
+                                className="form-control" 
+                                id="inputNombre"
+                                minlength="1"
+                                maxlength="40"                                
+                                pattern="([A-Za-zÑñáéíóúÁÉÍÓÚ ]+){1,15}"
+                                title="El nombre no puede contener números ni caracteres especiales. e.j. Juan"
+                            />
+                        </div>
                     </div>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="inputNombre">{i18n.t('users-panel.usr_name')}</label>
-                        <input required name="first_name" onChange={onChange} type="text" value={usuario.first_name} className="form-control" id="inputNombre" />
+                    <div className="form-row">
+                        <div className="form-group col-md-6">
+                            <label htmlFor="inputApellido">{i18n.t('users-panel.usr_last-name')}</label>
+                            <input required 
+                                name="last_name" 
+                                onChange={onChange} 
+                                type="text" 
+                                value={usuario.last_name} 
+                                className="form-control" 
+                                id="inputApellido"
+                                minlength="1"
+                                maxlength="40" 
+                                pattern="([A-Za-zÑñáéíóúÁÉÍÓÚ ]+){1,15}"
+                                title="El apellido no puede contener números ni caracteres especiales. e.j. Pérez"
+                            />
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="inputEmail">{i18n.t('users-panel.usr_email')}</label>
+                            <input 
+                                required 
+                                name='email' 
+                                type="email" 
+                                onChange={onChange} 
+                                className="form-control" 
+                                value={usuario.email} 
+                                id="inputEmail" 
+                                placeholder="name@example.com" 
+                                minlength="3"
+                                maxlength="40"
+                                />
+                        </div>
                     </div>
-                </div>
-                <div className="form-row">
-                    <div className="form-group col-md-6">
-                        <label htmlFor="inputApellido">{i18n.t('users-panel.usr_last-name')}</label>
-                        <input required name="last_name" onChange={onChange} type="text" value={usuario.last_name} className="form-control" id="inputApellido" />
+                    {mostrarFormulario()}
+                    <div className="form-row">
+                        <div className="form-group col-md-12">
+                            <label htmlFor="inputPerfil">{i18n.t('users-panel.usr_type')}</label>
+                            <select onChange={onChange} name="tipo_usuario" value={usuario.profile.tipo_usuario} id="inputPerfil" className="custom-select" >
+                                <option defaultValue>--</option>
+                                <option value="Administrador">{i18n.t('users-panel.usr_type-usr-admin')}</option>
+                                <option value="Gerente">{i18n.t('users-panel.usr_type-usr-manager')}</option>
+                                <option value="Operador">{i18n.t('users-panel.usr_type-usr-operator')}</option>
+                                <option value="Revisor">{i18n.t('users-panel.usr_type-usr-reviewer')}</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="inputEmail">{i18n.t('users-panel.usr_email')}</label>
-                        <input required name='email' type="email" onChange={onChange} className="form-control" value={usuario.email} id="inputEmail" placeholder="name@example.com" />
+                    <br /><br />
+                    <div className="form-row">
+                        <button type="submit" className="btn btn-primary mx-auto d-block col-md-5" >{i18n.t(nameBtn)}</button>
+                        <button onClick={props.cancelar} className="btn btn-danger mx-auto d-block col-md-5">{i18n.t('users-panel.usr_btn-cancelar')}</button>
                     </div>
-                </div>
-                {mostrarFormulario()}
-                <div className="form-row">
-                    <div className="form-group col-md-12">
-                        <label htmlFor="inputPerfil">{i18n.t('users-panel.usr_type')}</label>
-                        <select onChange={onChange} name="tipo_usuario" value={usuario.profile.tipo_usuario} id="inputPerfil" className="custom-select" >
-                            <option >--- </option>
-                            <option value="Gerente">Gerente</option>
-                            <option value="Administrador">Administrador</option>
-                            <option value="Operador">Operador</option>
-                            <option value="Revisor">Revisor</option>
-                        </select>
-                    </div>
-                </div>
+                </form>
                 <br /><br />
-                <div className="form-row">
-                    <button type="submit" className="btn btn-primary mx-auto d-block col-md-5" >{i18n.t(nameBtn)}</button>
-                    <button onClick={props.cancelar} className="btn btn-danger mx-auto d-block col-md-5">{i18n.t('users-panel.usr_btn-cancelar')}</button>
-                </div>
-            </form>
-            <br /><br />
-        </div>
-
+            </div>
+        </Fragment>
     )
-
 }
 
-
-export default ModificarUse
-
+export default ModificarUse;

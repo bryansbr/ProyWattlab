@@ -46,10 +46,11 @@ class Publicidad extends Component {
         solicitudBack.postRegisterPublicidad(publicidad
         ).then(res => {
             this.solicitud()
-            notificaciones.exito()
+            notificaciones.nuevaPublicidadExito()
         })
             .catch(error => {
                 console.log(error)
+                notificaciones.nuevaPublicidadError()
             })
         this.cerrarFormulario()
     }
@@ -59,11 +60,11 @@ class Publicidad extends Component {
         solicitudBack.putUpdatePublicidad(publicidad
         ).then(res => {
             this.solicitud()
-            notificaciones.exito()
+            notificaciones.modificarPublicidadExito()
         })
             .catch(error => {
                 console.log(error)
-                notificaciones.error()
+                notificaciones.modificarPublicidadError()
             })
         this.cerrarFormulario()
     }
@@ -72,9 +73,12 @@ class Publicidad extends Component {
         //console.log(publicidad)
         solicitudBack.putUpdatePublicidad(publicidad
         ).then(res => {
+            notificaciones.cambiarEstadoPublicidadExito()
             this.solicitud()
-        })
-            .catch(error => console.log(error))
+        }).catch(error => {
+                notificaciones.cambiarEstadoPublicidadError()
+                console.log(error)
+            })
     }
 
     cerrarFormulario = () => {

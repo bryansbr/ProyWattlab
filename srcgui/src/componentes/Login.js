@@ -29,12 +29,14 @@ const handleFormSubmit = (e, props) => { //ENVIO DE DATOS AL BACK
         props.onAuth(e.target.elements.username.value, e.target.elements.password.value);
         props.history.push("/ModuloAdministrador"); //Ruta a la cual me redigira si el login es verdadero
     } else {
+        //notificaciones.iniciarSesion()
         alertas()
     }
 }
 
 const alertas = () => {
     notificaciones.captcha()
+    //notificaciones.iniciarSesion()
 }
 
 function Login(props) {
@@ -45,7 +47,9 @@ function Login(props) {
     } else if (props.auth.usuario === 'Revisor'){
         return (<Redirect to="/RegistroConsumo" />
         )
-    }
+    } /*else if(props.auth.authenticate == false) {
+        notificaciones.iniciarSesion()
+    }*/
 
     return (
         <Layout className="layout">

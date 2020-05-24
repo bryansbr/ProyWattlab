@@ -70,10 +70,10 @@ class Clientes extends Component {
         solicitudBack.postRegisterCliente(cliente
         ).then(res => {
             this.solicitud()
-            notificaciones.exito()
+            notificaciones.nuevoClienteExito()
         })
             .catch(error => {
-                notificaciones.error()
+                notificaciones.nuevoClienteError()
             })
         this.cerrarFormulario()
     }
@@ -82,11 +82,12 @@ class Clientes extends Component {
         e.preventDefault()
         solicitudBack.postRegisterContrato(contrato
         ).then(res => {
+            notificaciones.crearContratoClienteExito()
             this.solicitudContratos(this.state.id)
 
         })
             .catch(error => {
-                notificaciones.error()
+                notificaciones.crearContratoClienteError()
             })
         this.cerrarFormulario()
     }
@@ -95,11 +96,11 @@ class Clientes extends Component {
         e.preventDefault()
         solicitudBack.putUpdateCliente(cliente
         ).then(res => {
+            notificaciones.modificarClienteExito()
             this.solicitud()
-            notificaciones.exito()
         })
             .catch(error => {
-                notificaciones.error()
+                notificaciones.modificarClienteError()
             })
         this.cerrarFormulario()
     }
@@ -109,10 +110,10 @@ class Clientes extends Component {
         solicitudBack.putUpdateContrato(contrato
         ).then(res => {
             this.solicitudContratos(this.state.id)
-            notificaciones.exito()
+            notificaciones.modificarContratoClienteExito()
         })
             .catch(error => {
-                notificaciones.error()
+                notificaciones.modificarContratoClienteError()
             })
             
         this.cerrarFormulario()
@@ -123,10 +124,10 @@ class Clientes extends Component {
         solicitudBack.putUpdateContrato(contrato
         ).then(res => {
             this.solicitudContratos(this.state.id)
-            notificaciones.exito()
+            notificaciones.cambiarEstadoContratoClienteExito()
         })
             .catch(error => {
-                notificaciones.error()
+                notificaciones.cambiarEstadoContratoClienteError()
             })
     }
 

@@ -3,8 +3,6 @@ import alerta from '../componentes/Alertas';
 const notificaciones = new alerta();
 const API_URL = 'http://127.0.0.1:8000';
 
-
-
 export default class BackService {
 
     constructor() { }
@@ -57,13 +55,19 @@ export default class BackService {
     async postRegisterUser(user) {
         const url = `${API_URL}/auth/user/`;
         return axios.post(url, user).then(res => res.data)
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error)
+                notificaciones.nuevoUsuarioError()
+            });
     }
     async putUpdateUser(user) {
         const url = `${API_URL}/auth/account/change-active/${user.id}/`;
         return axios.put(url, user)
             .then(res => res.data)
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error)
+                notificaciones.modificarUsuarioError()
+            });
 
     }
     //PUBLICIDAD
