@@ -1,11 +1,7 @@
 //import React, { Component } from 'react'
-
 import PDF, { Text, AddPage, Line, Image, Table, Html } from 'jspdf-react'
-
 import { useTranslation } from 'react-i18next';
-
 import React, { useRef, useEffect, useState } from 'react'
-
 import ImagePubilidad from './Image'
 
 

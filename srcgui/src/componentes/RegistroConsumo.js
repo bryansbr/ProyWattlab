@@ -17,11 +17,11 @@ const submitDatoSub = (e, consumo) => {
     solicitudBack.postRegisterConsumo(consumo)
       .then(res => {
         console.log('Realizado')
-        notificaciones.exito()
+        notificaciones.registroConsumoExito()
       }) //ALERTA DE EXITO
       .catch(error => {
         console.log('falla')
-        notificaciones.error()
+        notificaciones.registroConsumoError()
       })//ALERTA DE ERROR 
   }
 
@@ -41,7 +41,7 @@ function RegistroConsumo(props) {
   const [consumo, setConsumo] = useState({
     idntfccn_cntrto: '',
     kwh: '', 
-    prdo_cnsmo:'202007'
+    prdo_cnsmo:'2020-05-29'
   })
 
   const onChange = e => {
@@ -102,6 +102,5 @@ const mapDispatchToProps = dispatch => {
     }
   }
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegistroConsumo);

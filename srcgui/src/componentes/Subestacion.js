@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BackService from '../store/PeticionesBack';
 import alerta from '../componentes/Alertas';
-
 const solicitudBack = new BackService();
 const notificaciones = new alerta();
 
@@ -14,13 +13,14 @@ const submitDatoSub = (e, subE, props) => {
         solicitudBack.postSubestacion(subE)
             .then(res => {
                 console.log('Realizado')
-                notificaciones.exito()
+                notificaciones.agregarSubestacionExito()
             }) //ALERTA DE EXITO
             .catch(error => {
-                console.log('falla')
-                notificaciones.error()
-            })//ALERTA DE ERROR 
+                console.log('FallÓ')
+                notificaciones.agregarSubestacionError()
+            })//ALERTA DE ERROR
     }
+    notificaciones.agregarSubestacionExito()
 }
 
 function Subestacion(props) {

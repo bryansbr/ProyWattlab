@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BackService from '../store/PeticionesBack';
 import alerta from '../componentes/Alertas';
-
 const solicitudBack = new BackService();
 const notificaciones = new alerta();
 
-
 const submitDatoSub = (e, transf, props) => {
-
     transf.lngtd = props.longitud
     transf.lttd = props.latitud
 
@@ -16,13 +13,14 @@ const submitDatoSub = (e, transf, props) => {
         solicitudBack.postTransformador(transf)
             .then(res => {
                 console.log('Realizado')
-                notificaciones.exito()
+                notificaciones.agregarTransformadorExito()
             }) //ALERTA DE EXITO
             .catch(error => {
                 console.log('falla')
-                notificaciones.error()
+                notificaciones.agregarTransformadorError()
             })//ALERTA DE ERROR 
     }
+    notificaciones.agregarTransformadorExito()
 }
 
 function Transformador(props) {

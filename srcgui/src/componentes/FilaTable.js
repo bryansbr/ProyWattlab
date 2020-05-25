@@ -1,11 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import BotonModificar from './BotonModificar';
 import BotonInactivar from './BotonInactivar';
 import BotonVisualizar from './BotonVisualizar';
 import BotonCrear from './BotonCrear';
 
-
 function FilaTable(props) {
+    const i18n = useTranslation();
     //Dependiendo del tipo, se pintan las filas correspondientes
     const pintarCeldas = () => {
         switch (props.tipo) {
@@ -102,7 +103,7 @@ function FilaTable(props) {
         if (props.estado === true) {
             return (
                 <td>
-                    <BotonInactivar cambiarEstado={props.cambiarEstado.bind(this, fila)} nombre='inactivar' claseBoton='btn btn-danger' />
+                    <BotonInactivar cambiarEstado={props.cambiarEstado.bind(this, fila)} nombre='Inactivar' claseBoton='btn btn-danger' />
                 </td>
             )
         } else {

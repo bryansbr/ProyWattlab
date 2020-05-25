@@ -60,7 +60,10 @@
             "pqrs_email-title":"Correo electrónico",
             "pqrs_dcptn-title":"Descripción",
             "pqrs_btn-ext":"Click aquí",
-            "pqrs_btn-subm":"Enviar"
+            "pqrs_btn-subm":"Enviar",
+            "pqrs_user-manual-title": "Manual de usuario",
+            "pqrs_user-manual-text": "¿Tienes alguna duda? Mira nuestro manual de usuario en vídeo.",
+            "pqrs_user-manual-video": "¡Click aquí!"
          },
          "news-homepage":{
             "news_title":"Noticias y novedades",
@@ -75,7 +78,7 @@
          "login_description":"Ingresa con tus datos a la zona de empleados, aquí puedes realizar más acciones y conocer los movimientos de los usuarios.",
          "login_doc-title":"Usuario",
          "login_pass-title":"Contraseña",
-         "login_2pass-title": "Confirmar Contraseña",
+         "login_2pass-title": "Confirmar contraseña",
          "login_pass-forget-description":"¿Has olvidado tu contraseña?",
          "login_btn-login":"Iniciar sesión",
          "login_btn-logout":"Cerrar sesión"
@@ -93,19 +96,23 @@
       },
       "administration-panel":{
          "adm_title":"Panel de administración",
-         "adm_description":"Aquí se encuentran las diferentes opciones para el manejo y administración de la página"
+         "adm_description":"Aquí se encuentran las diferentes opciones para el manejo y administración de la página. También, toda la información referente a la empresa."
       },
       "users-panel":{
          "usr_ext-title":"Usuarios",
-         "usr_ext-description":"Adicionar, editar y consultar usuarios",
+         "usr_ext-description":"Adicionar, editar y consultar usuarios de la empresa.",
          "usr_int-title":"Panel de usuarios",
-         "usr_int-description":"A continuación, encontrará el listado de usuarios",
-         "usr_id":"ID",
-         "usr_user-name": "Usuario",
-         "usr_name":"Nombre",
-         "usr_last-name": "Apellido",
-         "usr_email": "Correo",
+         "usr_int-description":"En esta sección, encontrarás toda la información de los usuarios de la empresa.",
+         "usr_id":"ID number",
+         "usr_user-name": "Nombre de usuario",
+         "usr_name":"Nombres",
+         "usr_last-name": "Apellidos",
+         "usr_email": "Correo electrónico",
          "usr_type":"Tipo de usuario",
+         "usr_type-usr-admin": "Administrador",
+         "usr_type-usr-manager": "Gerente",
+         "usr_type-usr-operator": "Operador",
+         "usr_type-usr-reviewer": "Revisor",
          "usr_opts": "Opciones",
          "usr_state":"Estado",
          "usr_profile": "Perfil",
@@ -116,6 +123,8 @@
          "usr_btn-new":"Nuevo",
          "usr_btn-create": "Crear",
          "usr_btn-view": "Ver",
+         "usr_btn-results": "Resultados",
+         "usr_btn-rows-found": "filas encontradas",
          "usr_btn-change":"Modificar",
          "usr_btn-activate":"Activar",
          "usr_btn-inactive":"Inactivar",
@@ -123,9 +132,9 @@
       },
       "actives-panel":{
          "act_ext-title":"Activos",
-         "act_ext-description":"Transformadores y subestaciones",
+         "act_ext-description":"Transformadores y subestaciones de la empresa.",
          "act_int-title":"Transformadores y subestaciones",
-         "act_int-description":"A continuación, encontrará la ubicación de los transformadores y subestaciones.",
+         "act_int-description":"En esta sección, encontrarás todos los transformadores y subestaciones de la empresa en el mapa de la ciudad.",
          "act_msj-add": "¿Qué desea añadir?",         
          "actives-panel-transformer":{
             "act_create-trfm": "Creación de transformador",
@@ -157,9 +166,9 @@
       },
       "reports-panel":{
          "rpt_ext-title":"Reportes",
-         "rpt_ext-description":"Reporte de ingresos de la empresa",
+         "rpt_ext-description":"Reportes de activos, ingresos e información de la empresa.",
          "rpt_int-title":"Panel de reportes",
-         "rpt_int-description":"En esta sección, podrás encontrar los reportes de ingresos económicos de la empresa",
+         "rpt_int-description":"En esta sección; podrás encontrar los reportes de activos, ingresos e información de la empresa.",
          "rpt_clientes":"Numero de clientes registrados",
          "rpt_cntrt-activo":"Cantidad de contratos activos",
          "rpt_cntd-sube":"Cantidad de subestaciones",
@@ -181,9 +190,9 @@
       },
       "advertising-panel":{
          "adv_ext-title":"Publicidad",
-         "adv_ext-description":"Registro de la publicidad de la empresa",
+         "adv_ext-description":"Registro de la publicidad de la empresa.",
          "adv_int-title":"Panel de publicidad",
-         "adv_int-description":"En esta sección, podrá anadir la publicidad de la página",
+         "adv_int-description":"En esta sección, podrás anadir la publicidad que se mostará en la página.",
          "adv_new_adv": "Crear publicidad",
          "adv_change_adv": "Modificar publicidad",
          "adv_new-title": "Título",
@@ -192,9 +201,9 @@
       },
       "payments-panel":{
          "pay_ext-title":"Pagos",
-         "pay_ext-description":"Registro de pago de servicios por clientes",
+         "pay_ext-description":"Registro de pago de servicios por clientes de la empresa.",
          "pay_int-title":"Panel de pagos de clientes",
-         "pay_int-description":"En esta sección, podrá registrar los pagos de los clientes",
+         "pay_int-description":"En esta sección, podrás registrar los pagos de los clientes de la empresa.",
          "pay_id":"ID Usuario",
          "pay_bill-ref":"# Referencia factura",
          "pay_pay-date":"Fecha de pago",
@@ -215,9 +224,9 @@
       },
       "customers-panel":{
          "cst_ext-title":"Clientes",
-         "cst_ext-description":"Registro de clientes de la empresa",
+         "cst_ext-description":"Registro de clientes de la empresa.",
          "cst_int-title":"Panel de clientes",
-         "cst_int-description":"En esta sección, encontrará el listado de todos los clientes registrados.",
+         "cst_int-description":"En esta sección, encontrarás el listado de todos los clientes registrados.",
          "cst_type-id": "Tipo de identificación",
          "cst_id-num": "Número de identificación",
          "cst_first-name": "Nombres",
@@ -242,9 +251,15 @@
       },
       "banks-panel":{
          "bks_ext-title":"Bancos",
-         "bks_ext-description":"Pagos por bancos",
-         "bks_int-title":"",
-         "bks_int-description":""
+         "bks_ext-description":"Registro de pagos por bancos hechos a la empresa.",
+         "bks_int-title":"Panel de pagos por bancos",
+         "bks_int-description":"En esta sección, podrás registrar los pagos a la empresa realizados por los bancos.",
+         "bks_add-pay": "Añadir pago",
+         "bks_type-pay": "Nº Consecutivo factura",
+         "bks_val-pay": "Valor pagado",
+         "bks_list-banks": "Lista bancos",
+         "bks_num-card": "Nº Tarjeta",
+         "bks_obs": "Observación"
       },
       "setting-panel": {
          "set_int-title":"Configuraciones",
