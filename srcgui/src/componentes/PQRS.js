@@ -55,7 +55,7 @@ function PQRS() {
                         <h3>{i18n.t('homepage.pqrs-homepage.pqrs_clm-title')}</h3>
                         <p>{i18n.t('homepage.pqrs-homepage.pqrs_clm-description')}</p>
                         <h3>{i18n.t('homepage.pqrs-homepage.pqrs_sgtn-title')}</h3>
-                        <p>{i18n.t('homepage.pqrs-homepage.pqrs_sgtn-description')}</p>
+                        <p>{i18n.t('homepage.pqrs-homepage.pqrs_sgtn-description')}</p>                      
                     </div>
                     <div className="col-lg-5" style={{ marginTop: "20px" }}>
                         <form onSubmit={(event) => handleFormSubmit(event)}>

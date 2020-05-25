@@ -232,7 +232,6 @@ export default class alerta {
 	}
 
 	//PUBLICIDAD
-
 	nuevaPublicidadExito() {
 		Swal.fire({
 			position: 'center',
@@ -294,6 +293,52 @@ export default class alerta {
 			icon: 'error',
 			title: 'Oops... :(',
 			text: 'Ha ocurrido un error a la hora de cambiar el estado de la publicidad.',
+			footer: '<a href="http://localhost:3000/PQRS">Haz click aquí para reportar el error</a>',
+			showConfirmButton: true,
+		})	
+	}
+
+	//PAGOS CON TARJETA
+	pagoTarjetaExito() {
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Genial :)',
+			text: '¡Se ha realizado el pago de la factura exitosamente!',
+			showConfirmButton: false,
+			timer: 2500
+		})		
+	}
+
+	pagoTarjetaError() {
+		Swal.fire({
+			position: 'center',
+			icon: 'error',
+			title: 'Oops... :(',
+			text: 'Ha ocurrido un error a la hora del pago de la factura.',
+			footer: '<a href="http://localhost:3000/PQRS">Haz click aquí para reportar el error</a>',
+			showConfirmButton: true,
+		})	
+	}	
+
+	//REGISTRO CONSUMO
+	registroConsumoExito() {
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Genial :)',
+			text: '¡Se ha registrado el consumo exitosamente!',
+			showConfirmButton: false,
+			timer: 2500
+		})		
+	}
+
+	registroConsumoError() {
+		Swal.fire({
+			position: 'center',
+			icon: 'error',
+			title: 'Oops... :(',
+			text: 'Ha ocurrido un error a la hora de registrar el consumo.',
 			footer: '<a href="http://localhost:3000/PQRS">Haz click aquí para reportar el error</a>',
 			showConfirmButton: true,
 		})	

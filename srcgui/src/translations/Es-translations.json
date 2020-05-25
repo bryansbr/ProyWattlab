@@ -60,7 +60,10 @@
             "pqrs_email-title":"Correo electrónico",
             "pqrs_dcptn-title":"Descripción",
             "pqrs_btn-ext":"Click aquí",
-            "pqrs_btn-subm":"Enviar"
+            "pqrs_btn-subm":"Enviar",
+            "pqrs_user-manual-title": "Manual de usuario",
+            "pqrs_user-manual-text": "¿Tienes alguna duda? Mira nuestro manual de usuario en vídeo.",
+            "pqrs_user-manual-video": "¡Click aquí!"
          },
          "news-homepage":{
             "news_title":"Noticias y novedades",

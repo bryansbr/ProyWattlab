@@ -7,17 +7,16 @@ import Table from '../container/Table'
 import ModificarUse from './ModificarUse'
 import BackService from '../store/PeticionesBack';
 import BotonVisualizar from './BotonVisualizar';
-
 import jsPDF from 'jspdf'
 import { renderToString } from 'react-dom/server';
 import html2canvas from 'html2canvas';
 import ImagePublicidad from './Image';
 import PaymentForm from './PaymentForm'
+import alerta from '../componentes/Alertas';
 var Barcode = require('react-barcode');
 
-
 const solicitudBack = new BackService();
-
+const notificaciones = new alerta();
 
 class ConsultaFactura extends Component {
     myRef = React.createRef();
@@ -65,7 +64,7 @@ class ConsultaFactura extends Component {
                 resultado: res.length,
             })
             
-            //notificaciones.exito()
+            //notificaciones.pagoTarjetaExito()
         })
             .catch(error => {
                 console.log(error)
@@ -76,7 +75,7 @@ class ConsultaFactura extends Component {
                     banderaPago:false,
 
                 })
-                //notificaciones.error()
+                //notificaciones.pagoTarjetaError()
             })
     }
 
@@ -105,6 +104,7 @@ class ConsultaFactura extends Component {
         this.setState({
             banderaPago: true
         })
+        //notificaciones.pagoTarjetaExito()
     }
 
     mostrarForPago = () => {
@@ -120,8 +120,8 @@ class ConsultaFactura extends Component {
             if (this.state.estado===true) {
                 return (
                     <React.Fragment>
-                        <button type="submit" target="_blank" id="print" onClick={this.generarF} className="btn btn-primary btn-lg mx-auto d-block col-md-5" >Download PDF</button>
-                        <button style={{ cursor: "default" }} type="button" name="info" className="btn btn-lg btn-success mx-auto d-block col-md-5 " disabled>La factura ya esta cancelada</button>
+                        <button type="submit" target="_blank" id="print" onClick={this.generarF} className="btn btn-primary btn-lg mx-auto d-block col-md-5" >Descargar PDF</button>
+                        <button style={{ cursor: "default" }} type="button" name="info" className="btn btn-lg btn-success mx-auto d-block col-md-5 " disabled>La factura ya está cancelada</button>
                     </React.Fragment>
                     
                 )
@@ -129,14 +129,14 @@ class ConsultaFactura extends Component {
                 
                 return (
                     <React.Fragment>
-                        <button type="submit" target="_blank" id="print" onClick={this.generarF} className="btn btn-primary btn-lg mx-auto d-block col-md-5" >Download PDF</button>
+                        <button type="submit" target="_blank" id="print" onClick={this.generarF} className="btn btn-primary btn-lg mx-auto d-block col-md-5" >Descargar PDF</button>
                         <button type="button" name="pagar" onClick={this.pagar} className="btn  btn-lg btn-danger mx-auto d-block col-md-5">Pagar online</button>
                     </React.Fragment>
                 )
             }
         } else {
             return (
-                <button style={{ cursor: "default" }} type="button" name="info" className="btn btn-lg btn-danger mx-auto d-block col-md-12 " disabled>No hay Facturas</button>
+                <button style={{ cursor: "default" }} type="button" name="info" className="btn btn-lg btn-danger mx-auto d-block col-md-12 " disabled>No hay facturas</button>
             )
         }
 
