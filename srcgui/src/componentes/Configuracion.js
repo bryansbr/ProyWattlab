@@ -15,8 +15,8 @@ const handleFormSubmit = e => {
         solicitudBack.postTarifa({ //Envio de datos al back
             "vlr_kwh": e.target.elements.valorKWH.value,
             "obsrvcn": e.target.elements.observs.value,
-        }).then(res => { notificaciones.exito() })
-            .catch(error => { notificaciones.error() })
+        }).then(res => { notificaciones.configuracionExito() })
+            .catch(error => { notificaciones.configuracionError() })
 
         e.target.elements.valorKWH.value = "";
         e.target.elements.finVigencia.value = "";

@@ -344,6 +344,28 @@ export default class alerta {
 		})	
 	}
 
+	//CONFIGURACIONES
+	configuracionExito() {
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Genial :)',
+			text: '¡Se ha realizado la configuración exitosamente!',
+			showConfirmButton: false,
+			timer: 2500
+		})		
+	}
+
+	configuracionError() {
+		Swal.fire({
+			position: 'center',
+			icon: 'error',
+			title: 'Oops... :(',
+			text: 'Los campos no pueden estar vacíos.',
+			footer: '<a href="http://localhost:3000/PQRS">Haz click aquí para reportar el error</a>',
+			showConfirmButton: true,
+		})	
+	}
 	exito() {
 		Swal.fire({
 			position: 'center',

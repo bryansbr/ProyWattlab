@@ -154,7 +154,19 @@ function ModificarUse(props) {
                     <h2>{i18n.t('users-panel.usr_profile')}</h2>
                     <div className="form-group">
                         <label htmlFor="inputAddress">{i18n.t('users-panel.usr_id')}</label>
-                        <input required name="identificacion" onChange={onChange} type="text" value={usuario.profile.identificacion} className="form-control" id="inputAddress" />
+                        <input 
+                            required 
+                            name="identificacion" 
+                            onChange={onChange} 
+                            type="number" 
+                            value={usuario.profile.identificacion} 
+                            className="form-control"
+                            id="inputAddress" 
+                            minlength="3"
+                            maxlength="20"
+                            pattern="[0-9]{1,15}"
+                            title="El número de identificacion debe ser numérico. e.j. 115078"
+                        />
                     </div>
                 </React.Fragment>
             )
