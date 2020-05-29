@@ -36,7 +36,7 @@ class Servicio extends Component {
                 <div style={{ marginBottom: "20px", marginTop: "20px"}}>
                     <h1>{i18n.t('homepage.pqrs-homepage.pqrs_user-manual-title')}</h1>
                     <h5>{i18n.t('homepage.pqrs-homepage.pqrs_user-manual-text')}</h5>
-                    <h5><strong><a href="https://drive.google.com/file/d/1r1AlMl0FiKkpFBSySMuGJaFzMMek3dmY/view?usp=sharing" target="_blank">{i18n.t('homepage.pqrs-homepage.pqrs_user-manual-video')}</a></strong></h5>
+                    <h5><strong><a href="https://drive.google.com/file/d/1YF2gv4rBD-7_e8mBCEsiZUtvMCFtNVMM/view?usp=sharing" target="_blank">{i18n.t('homepage.pqrs-homepage.pqrs_user-manual-video')}</a></strong></h5>
                 </div>
             </div>
         )

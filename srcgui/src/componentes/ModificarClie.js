@@ -135,12 +135,10 @@ function ModificarClie(props) {
                                 <option value="3">C.E</option>
                             </select>
                         </div>
-
                         <div className="form-group col-md-6">
                             <label htmlFor="inputIdent">{i18n.t('customers-panel.cst_id-num')}</label>
                             <input required name="nmro_idntfccn" onChange={onChange} type="text" value={cliente.nmro_idntfccn} className="form-control" id="inputIdent" />
                         </div>
-
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6">
@@ -151,14 +149,13 @@ function ModificarClie(props) {
                             <label htmlFor="inputApellido">{i18n.t('customers-panel.cst_last-name')}</label>
                             <input required name="prmr_aplldo" onChange={onChange} type="text" value={cliente.prmr_aplldo} className="form-control" id="inputApellido" />
                         </div>
-
                     </div>
-
                     <div className="form-row">
                         <div className="form-group col-md-6">
                             <label htmlFor="inputFecha">{i18n.t('customers-panel.cst_birth-date')}</label>
                             <input required type="date" name="fcha_ncmnto" onChange={onChange} value={cliente.fcha_ncmnto} className="form-control" id="inputFecha" max="3000-12-31"
-                                min="1000-01-01" class="form-control" />
+                                min="1000-01-01" class="form-control"
+                            />
                         </div>
                         <div className="form-group col-md-6">
                             <label htmlFor="inputTipoClient">{i18n.t('customers-panel.cst_type-cst')}</label>
@@ -180,7 +177,6 @@ function ModificarClie(props) {
                     <h1 className="display-4">{i18n.t('customers-panel.cst_title-cst')}: {props.nombre.toUpperCase() + ' ' + props.apellido.toUpperCase()}</h1>
                     {mostrarTipoIdent()}
                     {mostrarTipoCliente()}
-
                 </div>
             </div>)
         }
@@ -190,11 +186,8 @@ function ModificarClie(props) {
         if (props.id === 'Nuevo' || props.id === 'Crear' || props.id=== 'ModificarCont') {
             return (
                 <React.Fragment>
-
                     {mostrarInfoClient()}
-
                     <h2>{i18n.t('customers-panel.cst_contract-title')}</h2>
-
                     <div className="form-row">
                         <div className="form-group col-md-6">
                             <label htmlFor="inputTipoIdent">{i18n.t('customers-panel.cst_type-soc')}</label>
@@ -206,15 +199,12 @@ function ModificarClie(props) {
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                                 <option value="6">6</option>
-
                             </select>
                         </div>
-
                         <div className="form-group col-md-6">
                             <label htmlFor="inputDire">{i18n.t('customers-panel.cst_adress-resd')}</label>
                             <input required name="drccn" onChange={onChange} type="text" value={cliente.contrato.drccn} className="form-control" id="inputDire" required/>
                         </div>
-
                     </div>
                 </React.Fragment>
             )

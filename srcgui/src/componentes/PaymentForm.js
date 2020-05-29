@@ -103,7 +103,7 @@ const PaymentForm = (props) => {
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6">
-                            <label htmlFor="Nombre">Nombre</label>
+                            <label htmlFor="Nombre">Nombre completo</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -116,7 +116,7 @@ const PaymentForm = (props) => {
                             />
                         </div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="inputIdentfBanco">Lista bancos</label>
+                            <label htmlFor="inputIdentfBanco">Lista de bancos</label>
                             <select name="nBanco" onChange={handleChange} value={state.nBanco} id="inputIdentfBanco" className="custom-select" required>
                                 <option></option>
                                 {state.banco.map(banco => (

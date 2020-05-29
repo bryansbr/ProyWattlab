@@ -143,11 +143,29 @@ function ModificarUse(props) {
                     <div className='form-row'>
                         <div className="form-group col-md-6">
                             <label htmlFor="inputContrasena">{i18n.t('login.login_pass-title')}</label>
-                            <input required onChange={onChange}  name="password" type="password" value={usuario.password} className="form-control" id="inputContrasena" />
+                            <input 
+                                required 
+                                onChange={onChange}  
+                                name="password" 
+                                type="password" 
+                                value={usuario.password} 
+                                className="form-control" 
+                                id="inputContrasena"
+                                placeholder={i18n.t('users-panel.usr_input-password')}
+                            />
                         </div>
                         <div className="form-group col-md-6">
                             <label htmlFor="inputCContrasena">{i18n.t('login.login_2pass-title')}</label>
-                            <input required name="cPassword" onChange={onChangeContrasena} type="password" value={conPassword.cPassword} className="form-control" id="inputCContrasena" />
+                            <input 
+                                required 
+                                name="cPassword" 
+                                onChange={onChangeContrasena} 
+                                type="password" 
+                                value={conPassword.cPassword} 
+                                className="form-control"
+                                id="inputCContrasena"
+                                placeholder={i18n.t('users-panel.usr_input-confirm-password')}
+                            />
                         </div>
                         <span className={conPassword.clase}>{conPassword.texto}</span>
                     </div>
@@ -161,11 +179,12 @@ function ModificarUse(props) {
                             type="number" 
                             value={usuario.profile.identificacion} 
                             className="form-control"
-                            id="inputAddress" 
-                            minlength="3"
+                            id="inputAddress"
+                            placeholder={i18n.t('users-panel.usr_input-id-number')} 
+                            minlength="4"
                             maxlength="20"
                             pattern="[0-9]{1,15}"
-                            title="El número de identificacion debe ser numérico. e.j. 115078"
+                            title="El número de identificacion debe tener entre 4 y 20 dígitos."
                         />
                     </div>
                 </React.Fragment>
@@ -205,6 +224,7 @@ function ModificarUse(props) {
                                 value={usuario.username} 
                                 className="form-control" 
                                 id="inputUsuario"
+                                placeholder={i18n.t('users-panel.usr_input-username')}
                                 minlength="3"
                                 maxlength="20"
                                 pattern="[A-Za-z0-9]{1,15}"
@@ -220,6 +240,7 @@ function ModificarUse(props) {
                                 value={usuario.first_name} 
                                 className="form-control" 
                                 id="inputNombre"
+                                placeholder={i18n.t('users-panel.usr_input-first-name')}
                                 minlength="1"
                                 maxlength="40"                                
                                 pattern="([A-Za-zÑñáéíóúÁÉÍÓÚ ]+){1,15}"
@@ -237,6 +258,7 @@ function ModificarUse(props) {
                                 value={usuario.last_name} 
                                 className="form-control" 
                                 id="inputApellido"
+                                placeholder={i18n.t('users-panel.usr_input-last-name')}
                                 minlength="1"
                                 maxlength="40" 
                                 pattern="([A-Za-zÑñáéíóúÁÉÍÓÚ ]+){1,15}"
@@ -253,7 +275,7 @@ function ModificarUse(props) {
                                 className="form-control" 
                                 value={usuario.email} 
                                 id="inputEmail" 
-                                placeholder="name@example.com" 
+                                placeholder={i18n.t('users-panel.usr_input-email')} 
                                 minlength="3"
                                 maxlength="40"
                                 />
@@ -264,7 +286,7 @@ function ModificarUse(props) {
                         <div className="form-group col-md-12">
                             <label htmlFor="inputPerfil">{i18n.t('users-panel.usr_type')}</label>
                             <select onChange={onChange} name="tipo_usuario" value={usuario.profile.tipo_usuario} id="inputPerfil" className="custom-select" >
-                                <option defaultValue>--</option>
+                                <option defaultValue>{i18n.t('users-panel.usr_type-default')}</option>
                                 <option value="Administrador">{i18n.t('users-panel.usr_type-usr-admin')}</option>
                                 <option value="Gerente">{i18n.t('users-panel.usr_type-usr-manager')}</option>
                                 <option value="Operador">{i18n.t('users-panel.usr_type-usr-operator')}</option>

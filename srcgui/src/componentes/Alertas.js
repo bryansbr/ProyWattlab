@@ -181,7 +181,7 @@ export default class alerta {
 			position: 'center',
 			icon: 'error',
 			title: 'Oops... :(',
-			text: 'Ha ocurrido un error a la hora de cerar el contrato.',
+			text: 'Ha ocurrido un error a la hora de crear el contrato.',
 			footer: '<a href="http://localhost:3000/PQRS">Haz click aquí para reportar el error</a>',
 			showConfirmButton: true,
 		})	
@@ -366,6 +366,30 @@ export default class alerta {
 			showConfirmButton: true,
 		})	
 	}
+
+	//PQRS 
+	pqrsExito() {
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Genial :)',
+			text: '¡Su mensaje se ha enviado exitosamente! Recibirá una copia de este en el correo electrónico que registró.',
+			showConfirmButton: false,
+			timer: 4000
+		})		
+	}
+
+	pqrsError() {
+		Swal.fire({
+			position: 'center',
+			icon: 'error',
+			title: 'Oops... :(',
+			text: 'Ha ocurrido un error a la hora en enviar el mensaje.',
+			//footer: '<a href="http://localhost:3000/PQRS">Haz click aquí para reportar el error</a>',
+			showConfirmButton: true,
+		})	
+	}
+
 	exito() {
 		Swal.fire({
 			position: 'center',
@@ -429,7 +453,7 @@ export default class alerta {
 
 		Toast.fire({
 			icon: 'warning',
-			title: 'Por favor, confirma captcha para iniciar sesión'
+			title: 'Por favor, confirma captcha para iniciar sesión.'
 		})
 	}
 	publicidad() {

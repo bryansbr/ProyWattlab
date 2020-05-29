@@ -20,11 +20,11 @@ const handleFormSubmit = e => {
             "email": e.target.elements.email.value
         }).then(res => {
             console.log(res)
-            notificaciones.exito()
+            notificaciones.pqrsExito()
         })
             .catch(error => {
                 console.log(error)
-                notificaciones.error()
+                notificaciones.pqrsError()
 
             })
         e.target.asunto.value = ""

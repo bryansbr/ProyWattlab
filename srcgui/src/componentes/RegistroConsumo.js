@@ -66,11 +66,11 @@ function RegistroConsumo(props) {
         </div>
         <form onSubmit={(e) => submitDatoSub(e, consumo)}>
           <div className="form-group">
-            Número de contrato:
+            Número de contrato
                   <input type="text" name="idntfccn_cntrto"  onChange={onChange} required className="form-control" />
           </div>
           <div className="form-group">
-            Cantidad KwH:
+            Cantidad kWh/mes
                   <input type="text" name="kwh"  onChange={onChange} required className="form-control" />
           </div>
           <div className="form-group" style={{ marginBottom: "30px" }}>

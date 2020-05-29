@@ -240,7 +240,7 @@ class PagosOperario extends Component {
             <div>
                 <Encabezado
                     titulo="Panel de pagos de factura"
-                    descripcion="Este es el panel de pagos de los clientes"
+                    descripcion="En esta sección, podrás consultar el estado de pago de una factura."
                 />
 
                 <div className="container" style={{ justifyContent: "center", marginTop: "20px" }}>
